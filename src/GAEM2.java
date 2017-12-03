@@ -40,9 +40,10 @@ public class GAEM2{
         Beginning.nationC();
         input = sc.next();
 
-        //while (!input.equals("amalian") && !input.equals("elven") && !input.equals("dwarven") && !input.equals("human")) {
-
-        //}
+        while (!input.equals("amalian") && !input.equals("elven") && !input.equals("dwarven") && !input.equals("human")) {
+            Beginning.nationC();
+            input = sc.next();
+        }
 
         if (input.equals("amalian")) {
                 you.nationality = "amalian";}
