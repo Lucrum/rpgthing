@@ -1,38 +1,62 @@
-import com.sun.xml.internal.bind.v2.TODO;
-
 public class methods {
 
     /*
     TODO
-    Fix confirmation bug
+    Make nationality work
      */
 
     public static String processedInput;
     public static java.util.Scanner scanner = new java.util.Scanner(System.in);
     public static String name;
-    public static String confirmation = "no";
+    public static boolean confirmation;
+    private static String confirmationQuestion;
+    private static String usage;
+    private static String nationality;
+    private static
 
     //fetches name
     public static String fetchName(){
         System.out.println("What is your name?");
         name = scanner.next();
-        while (!(confirmation == "yes")){
-            System.out.println(name + " is your name. Type 'yes' to confirm.");
-            if (scanner.next().equals("yes")){
-                confirmation = "yes";
-                return name;
+
+
+        //recursive thingy for the name
+        if (confirm(0, name)){
+            return name;
+        }
+        else {
+            fetchName();
+        }
+        return null;
+    }
+
+    //confirmation code
+    public static boolean confirm(int application, String characterProperty) {
+
+
+        switch(application){
+            case 0:{
+                confirmationQuestion = "Your name is ";
+                usage = characterProperty;
             }
-            else {
-                System.out.println(confirmation);
-                fetchName();
+            case 1:{
+                confirmationQuestion = "You're a ";
+                usage = characterProperty;
             }
         }
-        confirmation = "no";
-        return name;
+
+        System.out.println(confirmationQuestion + usage + ", right? Type yes to confirm");
+        if (scanner.next().equals("yes")){
+            confirmation = true;
+        }
+        else{
+            confirmation = false;
+        }
+        return confirmation;
     }
 
 
-    //fetches nationality
+    //fetches and confirms nationality
     public static String fetchNationality(){
         System.out.println("Choose your nationality, you can only choose one:" +
                 "\nAmalian" +
@@ -43,29 +67,13 @@ public class methods {
                 "\nThe dwarven race is the forge of the continent. Having superior tools and weapons, they also have good defense while being relatively shorter." +
                 "\nHuman" +
                 "\nThe human race is the most intelligent; having lots of skill points and a larger level difference.");
-        switch (scanner.next()) {
-            case "amalian": {
-                Character.nationality = "amalian";
-            }
-            case "elven": {
-                Character.nationality = "elven";
-            }
-            case "dwarven": {
-                Character.nationality = "dwarven";
-            }
-            case "human": {
-                Character.nationality = "human";
-            }
-            default:
-                scanner.next();
-        }
-        return Character.nationality;
-    }
 
-    public static void assureNationality(String nationality){
-        System.out.println("You're a " + nationality + ", right?");
-        if (scanner.next() == "yes"){
-        }
+        nationality = scanner.next();
+
+        //Need to filter the nationalities so system rejects any invalid ones
+
+        confirm(1, nationality);
+        return nationality;
     }
 
     //combat menu options

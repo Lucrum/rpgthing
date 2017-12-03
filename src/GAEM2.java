@@ -1,8 +1,9 @@
-//has bug when typing yes in start, skips name
-
-//need more classes
 public class GAEM2{
+
+    //Keep track of actions, an internal clock
     private static int sceneCount = 0;
+
+
     public static void main(String[] args) {
         //inputs this to start
         System.out.println("Type anything to start.");
@@ -11,24 +12,19 @@ public class GAEM2{
         java.util.Scanner sc = new java.util.Scanner(System.in);
         String input = sc.next();
         sceneCount++;
-        if (input.equals("gay")) {
-            while(0 == 0) {
-                System.out.println("ELTON");
-            }
-        }
-        System.out.println(sceneCount);
+
 
         //makes you, a protagonist
         Protagonist you = new Protagonist();
 
         //asks for your name
         you.name = methods.fetchName();
+        you.nationality = methods.fetchNationality();
+
         Beginning.phase(input, you);
-        input = sc.next();
 
         //choose nationality
         methods.fetchNationality();
-        methods.assureNationality(methods.fetchNationality());
 
 
         //story
