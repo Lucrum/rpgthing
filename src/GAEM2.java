@@ -2,13 +2,12 @@
 
 //need more classes
 public class GAEM2{
-    private static int sceneCount = 0;
+
     public static void main(String[] args) {
         //inputs this to start
         System.out.println("Type anything to start.");
 
         //beginning of scanner and stuff
-        java.util.Scanner sc = new java.util.Scanner(System.in);
         String input = sc.next();
         if (input.equals("gay")) {
             while(0 == 0) {
