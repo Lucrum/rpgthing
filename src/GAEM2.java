@@ -16,15 +16,6 @@ public class GAEM2{
         //makes you, a protagonist
         Protagonist you = new Protagonist();
 
-        //just a thing
-        System.out.println("Type your name.");
-
-        input = sc.next();
-        you.name = input;
-
-        Beginning.phase(input, you);
-        input = sc.next();
-
         //waits for yes, if doesn't remakes name
         while (!input.equals("yes")) {
             //asks for your name
@@ -36,23 +27,24 @@ public class GAEM2{
             input = sc.next();
         }
 
+        //resets input
+        input = "";
+
         //choose nationality
         Beginning.nationC();
-        input = sc.next();
-
-        while (!input.equals("amalian") && !input.equals("elven") && !input.equals("dwarven") && !input.equals("human")) {
-            Beginning.nationC();
+        while (!input.equals("yes")) {
+            input = sc.next();
+            while (!input.equals("amalian") && !input.equals("elven") && !input.equals("dwarven") && !input.equals("human")) {
+                Beginning.nationC();
+                input = sc.next();
+            }
+            System.out.println("Your nationality is " + input + ". Type yes to continue.");
             input = sc.next();
         }
+        you.nationality = input;
 
-        if (input.equals("amalian")) {
-                you.nationality = "amalian";}
-        if (input.equals("elven")) {
-                you.nationality = "elven";}
-        if (input.equals("dwarven")) {
-                you.nationality = "dwarven";}
-        if (input.equals("human")) {
-            you.nationality = "human";}
+        System.out.println("Type to progress the story.");
+        Scenes.print("", 0 , true);
 
     }
 }
