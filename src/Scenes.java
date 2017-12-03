@@ -5,7 +5,7 @@ class Scenes{
     //story
     public static void print(String input, int sceneCount, boolean onScene, Protagonist you) {
         if (sceneCount == 0) {
-            System.out.println("Once upon a time, in a continent of many different races mingling and interacting.");
+            System.out.println("Once upon a time, in a continent of many different races mingled and interacted.");
         }
         if (sceneCount == 1) {
             System.out.println("However, they were divided between the Radical faith and Vita faith.");
@@ -37,5 +37,6 @@ class Scenes{
         if (sceneCount == 10) {
             System.out.println("You are a young " + you.nationality + " and in the Vita faith, fight the Radical faith and uncover secrets about your own faith.");
         }
+
     }
 }

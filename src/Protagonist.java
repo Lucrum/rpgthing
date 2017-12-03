@@ -6,4 +6,6 @@ class Protagonist extends Character {
     public String nationality;
     //mana resource used for magic later
     public int mana;
+    public String[] inventory;
+    public String[] skills;
 }

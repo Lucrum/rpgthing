@@ -3,10 +3,6 @@
 //need more classes
 public class GAEM2{
 
-    //declare scanner outside of main
-    public static java.util.Scanner sc = new java.util.Scanner(System.in);
-
-    public static int sceneCount = 0;
     public static void main(String[] args) {
         //inputs this to start
         System.out.println("Type anything to start.");
@@ -22,12 +18,30 @@ public class GAEM2{
         //makes you, a protagonist
         Protagonist you = new Protagonist();
 
+        //asks for your name
+        System.out.println("Type your name.");
+        //waits for input (name), replaces it, and reassures player
+        input = sc.next();
+        if (input.equals("elton")) {
+            while (0 == 0) {
+                System.out.println("gay");
+            }
+        }
+        you.name = input;
+        Beginning.phase(input, you);
+        input = sc.next();
+
         //waits for yes, if doesn't remakes name
         while (!input.equals("yes")) {
             //asks for your name
             System.out.println("Type your name.");
             //waits for input (name), replaces it, and reassures player
             input = sc.next();
+            if (input.equals("elton")) {
+                while (0 == 0) {
+                    System.out.println("gay");
+                }
+            }
             you.name = input;
             Beginning.phase(input, you);
             input = sc.next();
@@ -40,8 +54,8 @@ public class GAEM2{
         String input2 = "";
 
         //choose nationality
-        Beginning.nationC();
         while (!input.equals("yes")) {
+            Beginning.nationC();
             input = sc.next();
             while (!input.equals("amalian") && !input.equals("elven") && !input.equals("dwarven") && !input.equals("human")) {
                 Beginning.nationC();
@@ -56,11 +70,16 @@ public class GAEM2{
         you.nationality = input2;
 
         //story
-        System.out.println("Type to progress the story.");
+        System.out.println("Type 1 to progress the story.");
         while (sceneCount <= 10) {
             input = sc.next();
-            Scenes.print(input, sceneCount, true, you);
-            sceneCount++;
+            if (input.equals("1")) {
+                Scenes.print(input, sceneCount, true, you);
+                sceneCount++;
+            }
+            else{
+                System.out.println("Type 1 to progress the story.");
+            }
         }
 
     }
