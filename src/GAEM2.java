@@ -48,27 +48,10 @@ public class GAEM2{
             input = sc.next();
         }
 
-        //resets input
-        input = "";
-
-        //sets your nationality with secondary input
-        String input2 = "";
-
         //choose nationality
-        while (!input.equals("yes")) {
-            Beginning.nationC();
-            input = sc.next();
-            while (!input.equals("amalian") && !input.equals("elven") && !input.equals("dwarven") && !input.equals("human")) {
-                Beginning.nationC();
-                input = sc.next();
-            }
-            input2 = input;
-            System.out.println("Your nationality is " + input + ".\nType yes to continue.");
-            input = sc.next();
-        }
+        methods.fetchNationality();
+        methods.assureNationality(methods.fetchNationality());
 
-        //sets nationality
-        you.nationality = input2;
 
         //story
         System.out.println("Type 1 to progress the story.");
@@ -85,4 +68,3 @@ public class GAEM2{
 
     }
 }
-
