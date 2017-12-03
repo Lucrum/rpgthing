@@ -19,4 +19,5 @@ class Beginning {
                 "\nHuman" +
                 "\nThe human race is the most intelligent; having lots of skill points and a larger level difference.");
     }
+
 }
