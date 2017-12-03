@@ -7,7 +7,7 @@ class Beginning {
     }
 
     public static void nationC(){
-        System.out.println("Choose your nationality:" +
+        System.out.println("Choose your nationality, you can only choose one:" +
                 "\nAmalian" +
                 "\nThe amalian race is the largest race on the continent. Unorganized, but strong in terms of damage and mediocre defense." +
                 "\nElven" +
