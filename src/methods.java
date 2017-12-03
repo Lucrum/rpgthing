@@ -12,7 +12,6 @@ public class methods {
     private static String confirmationQuestion;
     private static String usage;
     private static String nationality;
-    private static
 
     //fetches name
     public static String fetchName(){
