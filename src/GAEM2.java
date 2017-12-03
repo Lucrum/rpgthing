@@ -10,43 +10,21 @@ public class GAEM2{
         //beginning of scanner and stuff
         java.util.Scanner sc = new java.util.Scanner(System.in);
         String input = sc.next();
+        sceneCount++;
         if (input.equals("gay")) {
             while(0 == 0) {
                 System.out.println("ELTON");
             }
         }
+        System.out.println(sceneCount);
 
         //makes you, a protagonist
         Protagonist you = new Protagonist();
 
         //asks for your name
-        System.out.println("Type your name.");
-        //waits for input (name), replaces it, and reassures player
-        input = sc.next();
-        if (input.equals("elton")) {
-            while (0 == 0) {
-                System.out.println("gay");
-            }
-        }
-        you.name = input;
+        you.name = methods.fetchName();
         Beginning.phase(input, you);
         input = sc.next();
-
-        //waits for yes, if doesn't remakes name
-        while (!input.equals("yes")) {
-            //asks for your name
-            System.out.println("Type your name.");
-            //waits for input (name), replaces it, and reassures player
-            input = sc.next();
-            if (input.equals("elton")) {
-                while (0 == 0) {
-                    System.out.println("gay");
-                }
-            }
-            you.name = input;
-            Beginning.phase(input, you);
-            input = sc.next();
-        }
 
         //choose nationality
         methods.fetchNationality();

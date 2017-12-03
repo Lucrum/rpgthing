@@ -1,7 +1,35 @@
+import com.sun.xml.internal.bind.v2.TODO;
+
 public class methods {
+
+    /*
+    TODO
+    Fix confirmation bug
+     */
 
     public static String processedInput;
     public static java.util.Scanner scanner = new java.util.Scanner(System.in);
+    public static String name;
+    public static String confirmation = "no";
+
+    //fetches name
+    public static String fetchName(){
+        System.out.println("What is your name?");
+        name = scanner.next();
+        while (!(confirmation == "yes")){
+            System.out.println(name + " is your name. Type 'yes' to confirm.");
+            if (scanner.next().equals("yes")){
+                confirmation = "yes";
+                return name;
+            }
+            else {
+                System.out.println(confirmation);
+                fetchName();
+            }
+        }
+        confirmation = "no";
+        return name;
+    }
 
 
     //fetches nationality
@@ -37,7 +65,6 @@ public class methods {
     public static void assureNationality(String nationality){
         System.out.println("You're a " + nationality + ", right?");
         if (scanner.next() == "yes"){
-
         }
     }
 
@@ -53,5 +80,6 @@ public class methods {
         }
         return processedInput;
     }
+
 
 }
