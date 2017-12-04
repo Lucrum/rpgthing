@@ -39,6 +39,5 @@ public class GAEM2{
                 System.out.println("Type 1 to progress the story.");
             }
         }
-
     }
 }
