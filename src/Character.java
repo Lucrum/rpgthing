@@ -10,4 +10,5 @@ public class Character{
     protected int strength;
     protected int speed;
     protected int intelligence;
+    static protected String nationality;
 }
