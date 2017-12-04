@@ -17,14 +17,11 @@ public class GAEM2{
         //makes you, a protagonist
         Protagonist you = new Protagonist();
 
-        //asks for your name
+        //player makes character
         you.name = methods.fetchName();
-        you.nationality = methods.fetchNationality();
+        you.race = methods.fetchRace();
 
         Beginning.phase(input, you);
-
-        //choose nationality
-        methods.fetchNationality();
 
 
         //story

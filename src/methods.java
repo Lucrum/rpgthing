@@ -6,9 +6,11 @@ public class methods {
      */
 
     public static String processedInput;
-    public static java.util.Scanner scanner = new java.util.Scanner(System.in);
-    public static String name;
-    public static boolean confirmation;
+
+
+    private static java.util.Scanner scanner = new java.util.Scanner(System.in);
+    private static String name;
+    private static boolean confirmation;
     private static String confirmationQuestion;
     private static String usage;
     private static String nationality;
@@ -32,7 +34,7 @@ public class methods {
     //confirmation code
     public static boolean confirm(int application, String characterProperty) {
 
-
+        //changes question based on what's being confirmed
         switch(application){
             case 0:{
                 confirmationQuestion = "Your name is ";
@@ -56,7 +58,7 @@ public class methods {
 
 
     //fetches and confirms nationality
-    public static String fetchNationality(){
+    public static String fetchRace(){
         System.out.println("Choose your nationality, you can only choose one:" +
                 "\nAmalian" +
                 "\nThe amalian race is the largest race on the continent. Unorganized, but strong in terms of damage and mediocre defense." +
