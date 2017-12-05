@@ -1,19 +1,18 @@
 public class methods {
 
     /*
-    TODO
-    Make nationality work
+    TODO make nationality work
      */
 
+
+    //Declares all variables used in this class
     public static String processedInput;
-
-
     private static java.util.Scanner scanner = new java.util.Scanner(System.in);
     private static String name;
     private static boolean confirmation;
-    private static String confirmationQuestion;
     private static String usage;
     private static String nationality;
+    private static String confirmationQuestion;
 
     //fetches name
     public static String fetchName(){
@@ -22,7 +21,7 @@ public class methods {
 
 
         //recursive thingy for the name
-        if (confirm(0, name)){
+        if (confirm("name", name)){
             return name;
         }
         else {
@@ -31,22 +30,23 @@ public class methods {
         return null;
     }
 
+    //TODO for some reason only uses case "race" in the question. pls fix
+
     //confirmation code
-    public static boolean confirm(int application, String characterProperty) {
+    public static boolean confirm(String application, String characterProperty) {
 
         //changes question based on what's being confirmed
         switch(application){
-            case 0:{
+            case "name":{
                 confirmationQuestion = "Your name is ";
-                usage = characterProperty;
             }
-            case 1:{
+            case "race":{
                 confirmationQuestion = "You're a ";
-                usage = characterProperty;
             }
         }
 
-        System.out.println(confirmationQuestion + usage + ", right? Type yes to confirm");
+        System.out.println(confirmationQuestion + characterProperty + ", right? Type yes to confirm");
+
         if (scanner.next().equals("yes")){
             confirmation = true;
         }
@@ -59,21 +59,14 @@ public class methods {
 
     //fetches and confirms nationality
     public static String fetchRace(){
-        System.out.println("Choose your nationality, you can only choose one:" +
-                "\nAmalian" +
-                "\nThe amalian race is the largest race on the continent. Unorganized, but strong in terms of damage and mediocre defense." +
-                "\nElven" +
-                "\nThe elven race is the magic of the continent, using skill points and superior magic. They are also relatively taller." +
-                "\nDwarven" +
-                "\nThe dwarven race is the forge of the continent. Having superior tools and weapons, they also have good defense while being relatively shorter." +
-                "\nHuman" +
-                "\nThe human race is the most intelligent; having lots of skill points and a larger level difference.");
+
+        Scenes.raceIntro();
 
         nationality = scanner.next();
 
         //Need to filter the nationalities so system rejects any invalid ones
 
-        confirm(1, nationality);
+        confirm("race", nationality);
         return nationality;
     }
 
