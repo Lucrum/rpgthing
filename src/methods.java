@@ -6,13 +6,12 @@ public class methods {
 
 
     //Declares all variables used in this class
-    public static String processedInput;
     private static java.util.Scanner scanner = new java.util.Scanner(System.in);
     private static String name;
     private static boolean confirmation;
-    private static String usage;
     private static String nationality;
     private static String confirmationQuestion;
+    private static String action;
 
     //fetches name
     public static String fetchName(){
@@ -80,7 +79,7 @@ public class methods {
             case "flee":{
             }
         }
-        return processedInput;
+        return action;
     }
 
 
