@@ -3,7 +3,6 @@ public class GAEM2{
     //Keep track of actions, an internal clock
     private static int sceneCount = 0;
 
-
     public static void main(String[] args) {
         //inputs this to start
         System.out.println("Type anything to start.");
@@ -17,14 +16,11 @@ public class GAEM2{
         //makes you, a protagonist
         Protagonist you = new Protagonist();
 
-        //asks for your name
-        you.name = methods.fetchName();
-        you.nationality = methods.fetchNationality();
+        //player makes character
+        you.name = characterCreate.fetchName();
+        you.race = characterCreate.fetchRace();
 
         Beginning.phase(input, you);
-
-        //choose nationality
-        methods.fetchNationality();
 
 
         //story

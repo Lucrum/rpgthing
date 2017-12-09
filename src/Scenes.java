@@ -1,8 +1,19 @@
-/**
- * Created by JJ on 12/2/2017.
- */
 class Scenes{
-    //story
+    //story and all the other text crap
+
+    public static void raceIntro(){
+        System.out.println("Choose your race, you can only choose one:" +
+                "\nAmalian" +
+                "\nThe amalian race is the largest race on the continent. Unorganized, but strong in terms of damage and mediocre defense." +
+                "\nElven" +
+                "\nThe elven race is the magic of the continent, using skill points and superior magic. They are also relatively taller." +
+                "\nDwarven" +
+                "\nThe dwarven race is the forge of the continent. Having superior tools and weapons, they also have good defense while being relatively shorter." +
+                "\nHuman" +
+                "\nThe human race is the most intelligent; having lots of skill points and a larger level difference.");
+    }
+
+
     public static void print(String input, int sceneCount, boolean onScene, Protagonist you) {
 
         switch(sceneCount){
@@ -37,7 +48,7 @@ class Scenes{
                 System.out.println("However, with magic, they both agree that mages require a tribute of mana and a prayer to Magik (an agreed-on deity) in order to cast a spell.");
             }
             case 10: {
-                System.out.println("You are a young " + you.nationality + " in the Vita faith, fight the Radical faith and uncover secrets about your own faith.");
+                //add stuffs
             }
         }
     }
