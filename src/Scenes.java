@@ -1,16 +1,27 @@
 class Scenes{
     //story and all the other text crap
 
+    private static String[] raceDescriptions = new String[]{
+            "Choose your race, you can only choose one:",
+            "\nAmalian" + "\nThe amalian race is the largest race on the continent. Unorganized, but strong in terms of damage and mediocre defense.",
+            "\nElven" + "\nThe elven race is the magic of the continent, using skill points and superior magic. They are also relatively taller.",
+            "\nDwarven" + "\nThe dwarven race is the forge of the continent. Having superior tools and weapons, they also have good defense while being relatively shorter.",
+            "\nHuman" + "\nThe human race is the most intelligent; having lots of skill points and a larger level difference."
+    };
+
     public static void raceIntro(){
-        System.out.println("Choose your race, you can only choose one:" +
-                "\nAmalian" +
-                "\nThe amalian race is the largest race on the continent. Unorganized, but strong in terms of damage and mediocre defense." +
-                "\nElven" +
-                "\nThe elven race is the magic of the continent, using skill points and superior magic. They are also relatively taller." +
-                "\nDwarven" +
-                "\nThe dwarven race is the forge of the continent. Having superior tools and weapons, they also have good defense while being relatively shorter." +
-                "\nHuman" +
-                "\nThe human race is the most intelligent; having lots of skill points and a larger level difference.");
+
+        for (int i = 0; i < 5; i++){
+            System.out.println(raceDescriptions[i]);
+
+            //Pauses the printing for 1 second, so it isn't just spat out at you
+            try{
+                Thread.sleep(1000);
+            }
+            catch(InterruptedException ex){
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 
 

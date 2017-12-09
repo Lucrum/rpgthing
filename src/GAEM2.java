@@ -1,3 +1,5 @@
+import java.util.concurrent.TimeUnit;
+
 public class GAEM2{
 
     //Keep track of actions, an internal clock
@@ -12,13 +14,12 @@ public class GAEM2{
         String input = sc.next();
         sceneCount++;
 
-
-        //makes you, a protagonist
+        //Creates protagonist
         Protagonist you = new Protagonist();
 
-        //player makes character
         you.name = characterCreate.fetchName();
         you.race = characterCreate.fetchRace();
+
 
         Beginning.phase(input, you);
 
@@ -30,6 +31,14 @@ public class GAEM2{
             if (input.equals("1")) {
                 Scenes.print(input, sceneCount, true, you);
                 sceneCount++;
+
+                //Pauses printing, so it doesn't spit it all out at once
+                try{
+                    Thread.sleep(1000);
+                }
+                catch(InterruptedException ex){
+                    Thread.currentThread().interrupt();
+                }
             }
             else{
                 System.out.println("Type 1 to progress the story.");

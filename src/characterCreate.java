@@ -1,8 +1,5 @@
 public class characterCreate {
 
-    /*
-    TODO make nationality work
-     */
 
 
     //Declares all variables used in this class
@@ -16,6 +13,7 @@ public class characterCreate {
     private static String[] race = new String[] {
             "human", "elven", "dwarven", "amalian"
     };
+
 
     //fetches name
     public static String fetchName(){
