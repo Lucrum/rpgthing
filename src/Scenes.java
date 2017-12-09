@@ -48,7 +48,7 @@ class Scenes{
                 System.out.println("However, with magic, they both agree that mages require a tribute of mana and a prayer to Magik (an agreed-on deity) in order to cast a spell.");
             }
             case 10: {
-                System.out.println("You are a young " + you.race + " in the Vita faith, fight the Radical faith and uncover secrets about your own faith.");
+                //add stuffs
             }
         }
     }
