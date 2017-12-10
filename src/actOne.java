@@ -1,3 +1,5 @@
+import java.io.FileReader;
+
 public class actOne {
     //class that stores dialogue and other story elements in Act One
 
