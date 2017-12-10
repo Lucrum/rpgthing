@@ -1,2 +1,4 @@
 # rpgthing
-gay me
+Gay things.
+
+Game in progress so get out you bois
