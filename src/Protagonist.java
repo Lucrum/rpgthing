@@ -1,6 +1,4 @@
 class Protagonist extends Character {
-    //nationality
-    //mana resource used for magic later
     public int mana;
     public String[] inventory;
     public String[] skills;
@@ -15,4 +13,12 @@ class Protagonist extends Character {
     etc
      */
     public int playerState;
+
+    public void defineBaseStats(String playerRace){
+        switch (playerRace){
+            case "human": {
+
+            }
+        }
+    }
 }

@@ -12,6 +12,37 @@ public class Character{
     static protected String race;
 
 
+    public String getName() {
+        return name;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int getAgility() {
+        return agility;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public int getIntelligence() {
+        return intelligence;
+    }
+
+    public String getRace(){
+        return race;
+    }
 
     //necessary variables for character creation
     private String confirmationQuestion;
@@ -34,7 +65,7 @@ public class Character{
 
 
     //gets name
-    public String getName(){
+    public String setName(){
         System.out.println("What is your name?");
         name = input.next();
 
@@ -44,7 +75,7 @@ public class Character{
             return name;
         }
         else {
-            getName();
+            setName();
         }
         return null;
     }
@@ -72,7 +103,7 @@ public class Character{
     }
 
     //gets race
-    public String getRace(){
+    public String setRace(){
 
         raceIntro();
         race = input.next();
@@ -87,7 +118,7 @@ public class Character{
         //only accepts valid races ("reasoner" is the default value for the string). If invalid, fetches race again.
         if (raceResult.equals("reason")){
             System.out.println("Invalid answer! Try again!");
-            getRace();
+            setRace();
         }
 
         //recursive thingy for the race
@@ -95,7 +126,7 @@ public class Character{
             return raceResult;
         }
         else {
-            getRace();
+            setRace();
         }
         return null;
     }
@@ -116,6 +147,4 @@ public class Character{
             }
         }
     }
-
-
 }

@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class GAEM2{
 
-    final static double VER_NUM = 0.1;
+    final private static double VER_NUM = 0.1;
 
     //Keep track of actions, an internal clock
     private static int actCount = 1;
@@ -32,8 +32,9 @@ public class GAEM2{
         //creates protagonist
         Protagonist player = new Protagonist();
 
-        player.getName();
-        player.getRace();
+        player.setName();
+        player.setRace();
+        //player.defineBaseStats(player.getRace);
         player.playerState = 0;
 
 
@@ -59,6 +60,8 @@ public class GAEM2{
 
             }
         }
+
+
 
 
 
