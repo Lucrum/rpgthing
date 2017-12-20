@@ -2,6 +2,7 @@ class Protagonist extends Character {
     public int mana;
     public String[] inventory;
     public String[] skills;
+    public int coins;
 
     /* keeps track of player state (out of combat, in town, etc) and determines the commands the player can use
     0 = intro/tutorial
@@ -12,6 +13,7 @@ class Protagonist extends Character {
 
     etc
      */
+
     public int playerState;
 
     public void defineBaseStats(String playerRace){
@@ -20,5 +22,9 @@ class Protagonist extends Character {
 
             }
         }
+    }
+
+    public int getPlayerState(){
+        return playerState;
     }
 }

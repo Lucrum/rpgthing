@@ -2,12 +2,14 @@ import java.util.Scanner;
 
 public class GAEM2{
 
-    final private static double VER_NUM = 0.1;
+    final private static String VER_NUM = "0.01";
 
     //Keep track of actions, an internal clock
     private static int actCount = 1;
     private static int sceneCount = 1;
     private static int partCount = 1;
+
+    public final static String apology = "Something went wrong and we don't know how to fix it.";
 
 
     public static void main(String[] args) {
@@ -38,7 +40,6 @@ public class GAEM2{
         player.playerState = 0;
 
 
-
         //story
         /*System.out.println("Welcome, " + you.name + ", type 1 to continue.");
         while (sceneCount <= 10) {
@@ -52,18 +53,8 @@ public class GAEM2{
             }
         } */
 
-        while (1 == 1){
-            if (player.playerState == 0){
-
-            }
-            else if (player.playerState == 1){
-
-            }
-        }
-
-
-
-
+        actOne.dialogue(0);
+        
 
     }
 }

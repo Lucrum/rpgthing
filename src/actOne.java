@@ -1,27 +1,39 @@
 public class actOne {
     //class that stores dialogue and other story elements in Act One
 
-    //array that stores dialogue
+    private static int startLine;
+    private static int endLine;
+
     private static String[] storyDialogue = new String[]{
+
+            //0
             "...",
             "\"Oh, great, you're awake!\"",
-            "The first thing you notice is the heady smell of food"
+            "The first thing you notice is the heady smell of food",
+
+            //1
+            //text goes here
     };
 
-    public static int dialogue(int lines){
+    public static void dialogue(int lineID){
 
-        for (int i = 0; i < lines; i++){
-
-            System.out.println(storyDialogue[i]);
-
-            try{
-                Thread.sleep(1000);
-            }
-            catch(InterruptedException ex){
-                Thread.currentThread().interrupt();
+        switch(lineID){
+            case 0:{
+                startLine = 0;
+                endLine = 2;
             }
         }
 
-        return 0;
+
+        for(int i = startLine; i <= endLine; i++){
+            System.out.println(storyDialogue[i]);
+            try{
+                Thread.currentThread().sleep(1000);
+            }
+            catch(InterruptedException ex){
+                System.out.println(GAEM2.apology);
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 }

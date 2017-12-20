@@ -143,6 +143,7 @@ public class Character{
                 Thread.sleep(1000);
             }
             catch(InterruptedException ex){
+                System.out.println(GAEM2.apology);
                 Thread.currentThread().interrupt();
             }
         }
