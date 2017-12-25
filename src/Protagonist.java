@@ -1,7 +1,8 @@
 import java.util.Scanner;
-import java.util.SortedMap;
 
 class Protagonist extends Character {
+
+    //TODO - fix health
 
     private static Scanner sc = new Scanner(System.in);
 
