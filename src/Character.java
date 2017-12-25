@@ -1,15 +1,36 @@
 import java.util.Scanner;
 
 public class Character{
-    //has stats and info for all characters
+    //has stats and info for all characters (temporary values, can be manipulated)
     protected String name;
     protected int health;
+    protected int maxHealth;
     protected int agility;
-    protected int defense;
+    protected double defense;
     protected int strength;
     protected int speed;
     protected int intelligence;
-    static protected String race;
+
+    /*integer identifier for race, makes for easier usage
+    0 = human
+    1 = elven
+    2 = dwarven
+    3 = amalian
+     */
+    static protected int raceID;
+
+    //IDs for the races
+    private static String[] validRaces = new String[] {
+            "human", "elven", "dwarven", "amalian"
+    };
+
+    //comparison values when leaving combat, prevents stats from being permanently buffed
+    protected int normHealth;
+    protected int normAgility;
+    protected double normDefense;
+    protected int normStrength;
+    protected int normSpeed;
+    protected int normIntelligence;
 
 
     public String getName() {
@@ -24,7 +45,7 @@ public class Character{
         return agility;
     }
 
-    public int getDefense() {
+    public double getDefense() {
         return defense;
     }
 
@@ -40,8 +61,10 @@ public class Character{
         return intelligence;
     }
 
-    public String getRace(){
-        return race;
+    public String raceString;
+
+    public int getRaceID(){
+        return raceID;
     }
 
     //necessary variables for character creation
@@ -49,18 +72,14 @@ public class Character{
     private boolean confirmation;
     private String raceResult = "reason";
 
-    private static String[] validRaces = new String[] {
-            "human", "elven", "dwarven", "amalian"
-    };
-
     Scanner input = new Scanner(System.in);
 
     private static String[] raceDescriptions = new String[]{
             "Choose your race, you can only choose one:",
-            "\nAmalian" + "\nThe amalian race is the largest race on the continent. Unorganized, but strong in terms of damage and mediocre defense.",
-            "\nElven" + "\nThe elven race is the magic of the continent, using skill points and superior magic. They are also relatively taller.",
-            "\nDwarven" + "\nThe dwarven race is the forge of the continent. Having superior tools and weapons, they also have good defense while being relatively shorter.",
-            "\nHuman" + "\nThe human race is the most intelligent; having lots of skill points and a larger level difference."
+            "\nAmalian" + "\nThe amalian race is the largest race on the continent. They are an unorganized bunch, but they make up for it with strength.",
+            "\nElven" + "\nThe elven race is the beating heart of magic on the continent, using skill points and superior magic to bring down their enemies.",
+            "\nDwarven" + "\nThe dwarven race is the forge of the continent. Having superior tools and weapons, they have superior defensive stats, making up for their short stature.",
+            "\nHuman" + "\nThe human race is known as the weakest, having little in terms of strength. However, they compensate with their intellect and versatility."
     };
 
 
@@ -93,7 +112,7 @@ public class Character{
 
         System.out.println(confirmationQuestion + characterProperty + ", right? Type yes to confirm.");
 
-        if (input.next().equals("yes")){
+        if (input.next().toLowerCase().equals("yes")){
             confirmation = true;
         }
         else{
@@ -102,20 +121,21 @@ public class Character{
         return confirmation;
     }
 
+
     //gets race
     public String setRace(){
 
         raceIntro();
-        race = input.next();
+        raceString = input.next().toLowerCase();
 
         //cycles through possible races
         for(int i = 0; i < 4; i++) {
-            if (validRaces[i].equals(race)) {
-                raceResult = race;
+            if (validRaces[i].equals(raceString)) {
+                raceResult = raceString;
             }
         }
 
-        //only accepts valid races ("reasoner" is the default value for the string). If invalid, fetches race again.
+        //only accepts valid races ("reason" is the default value for the string). If invalid, fetches race again.)
         if (raceResult.equals("reason")){
             System.out.println("Invalid answer! Try again!");
             setRace();
@@ -131,21 +151,89 @@ public class Character{
         return null;
     }
 
+    //turns race into an integer for easy usage
+    public void setRaceID(String race){
+        switch (race){
+            case "human": {
+                raceID = 0;
+                break;
+            }
+            case "elven": {
+                raceID = 1;
+                break;
+            }
+            case "dwarven": {
+                raceID = 2;
+                break;
+            }
+            case "amalian": {
+                raceID = 3;
+                break;
+            }
+        }
+    }
+
 
     //introduces and describes races to player
-    public static void raceIntro(){
+    private static void raceIntro(){
 
         for (int i = 0; i < 5; i++){
             System.out.println(raceDescriptions[i]);
 
             //pauses the printing for 1 second, so it isn't just spat out at you simultaneously and is more organic
-            try{
-                Thread.sleep(1000);
+            GAEM2.pause(1000);
+        }
+    }
+
+    public void defineBaseStats(int raceID){
+        switch (raceID){
+            case 0:{
+                //human
+                this.health = 20;
+                this.agility = 5;
+                this.defense = 2;
+                this.strength = 5;
+                this.speed = 5;
+                this.intelligence = 10;
             }
-            catch(InterruptedException ex){
-                System.out.println(GAEM2.apology);
-                Thread.currentThread().interrupt();
+            case 1:{
+                //elven
+                this.health = 18;
+                this.agility = 4;
+                this.defense = 1;
+                this.strength = 5;
+                this.speed = 5;
+                this.intelligence = 15;
+            }
+            case 2:{
+                //dwarven
+                this.health = 25;
+                this.agility = 2;
+                this.defense = 4;
+                this.strength = 7;
+                this.speed = 3;
+                this.intelligence = 2;
+            }
+            case 3:{
+                //amalian
+                this.health = 25;
+                this.agility = 5;
+                this.defense = 3;
+                this.strength = 10;
+                this.speed = 7;
+                this.intelligence = 3;
             }
         }
+        this.normAgility = this.agility;
+        this.normDefense = this.defense;
+        this.normHealth = this.health;
+        this.normStrength = this.strength;
+        this.normSpeed = this.speed;
+        this.normIntelligence = this.intelligence;
+    }
+
+    //lowers hp in combat
+    public void loseHp(int damage){
+        this.health -= damage;
     }
 }
