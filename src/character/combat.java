@@ -65,9 +65,15 @@ public class combat {
                 //does it if opponent is the attacker
                 enemyTurn(opponent, player);
 
+
+
                 //resets any handicaps
                 damageModifier = damageModifierHolder;
                 player.speed = player.normSpeed;
+
+
+                opponent.speed /= 2;
+
 
                 turnCounter++;
             }
@@ -81,6 +87,9 @@ public class combat {
                 System.out.println("\n");
                 String sInput = sc.next().toLowerCase();
                 playerTurn(player, opponent, sInput);
+
+                //resets opponent's speed
+                opponent.speed = opponent.normSpeed;
 
                 //reduces speed, allows player to attack multiple times if sufficiently quick
                 player.speed /= 2;
@@ -102,6 +111,14 @@ public class combat {
             player.playerState = 0;
         }
 
+        //resets any buffs
+        player.intelligence = player.normIntelligence;
+        player.strength = player.normStrength;
+        player.agility = player.normAgility;
+        player.defense = player.normDefense;
+        player.health = player.normHealth;
+        player.speed = player.normSpeed;
+
         //returns whoWon to use for later on
         return whoWon;
     }
@@ -116,7 +133,7 @@ public class combat {
             case "a":{
                 System.out.println("You have done " + attacker.strength + " damage!");
                 //attacks second, in this case monster
-                defender.physicalDamage(attacker.strength, defender.defense);
+                attacker.dealPhysicalDamage(defender);
                 break;
             }
 
@@ -124,11 +141,27 @@ public class combat {
             case "m":{
 
                 //magic code
+
                 spell castedSpell = spellCast.cast(attacker, 0);
 
-                System.out.println("You have casted " + castedSpell.name + "!");
+                if(attacker.mana < castedSpell.manaCost){
+                    System.out.println("Insufficient mana.");
 
-                defender.magicDamage(castedSpell, defender);
+                    sInput = sc.next();
+                    playerTurn(attacker, defender, sInput);
+                }
+
+
+                else if(attacker.mana >= castedSpell.manaCost){
+
+                    System.out.println("You have casted " + castedSpell.name + "!");
+
+                    if(castedSpell.spellType == 1){
+                        System.out.println(castedSpell.name + " has dealt " + attacker.dealMagicDamage(castedSpell, defender) + " damage!");
+                    }
+
+                    attacker.mana -= castedSpell.manaCost;
+                }
 
                 break;
             }
@@ -222,7 +255,7 @@ public class combat {
         //if health is low, has a higher chance to defend
         if (Math.random() > 0.15 * attacker.maxHealth / (attacker.health + 1)) {
             //attacks second, in this case player
-            System.out.println("Monster has done " + defender.physicalDamage(attacker.strength, defender.defense) + " damage!");
+            System.out.println(attacker.name + " has done " + attacker.dealPhysicalDamage(defender) + " damage!");
         }
 
         else {

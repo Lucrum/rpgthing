@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class GAEM2{
 
-    private final static String VER_NUM = "0.02A COMBAT TEST";
+    private final static String VER_NUM = "0.03A MAGIC TEST";
 
     //Keep track of actions, an internal clock maybe
     private static int actCount = 1;
@@ -59,7 +59,7 @@ public class GAEM2{
         player.setName(0);
         player.setRace(0);
         player.setRaceID(player.raceString);
-        player.defineBaseStats(player.getRaceID());
+        player.defineBaseStats();
         player.playerState = 0;
 
 
@@ -71,7 +71,7 @@ public class GAEM2{
 
 
         //story
-        /*System.out.println("Welcome, " + you.name + ", type 1 to continue.");
+        /*System.out.println("Welcome, " + player.name + ", type 1 to continue.");
         while (sceneCount <= 10) {
             sc.next();
             if (input.equals("1")) {

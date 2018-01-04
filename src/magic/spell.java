@@ -19,17 +19,17 @@ public class spell {
     1 = defensive
     etc
      */
+    public int spellType;
 
 
-    public spell(String name, int damage, String description, effect spellEffect, int manaCost, int duration) {
+    public spell(String name, int damage, String description, effect spellEffect, int manaCost, int duration, int spellType) {
         this.name = name;
         this.description = description;
         this.damage = damage;
         this.spellEffect = spellEffect;
         this.manaCost = manaCost;
         this.duration = duration;
+        this.spellType = spellType;
     }
-
-
 
 }
