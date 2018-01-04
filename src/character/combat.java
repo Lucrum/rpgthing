@@ -144,7 +144,7 @@ public class combat {
 
             case "item":
             case "i":{
-                System.out.println(/*a method to produce all the inventory*/);
+                System.out.println(attacker.read());
                 sInput = sc.next();
                 while (!check(sInput)) {
                     System.out.println("Invalid item. Either " + (String) attacker.dataForinventory[where(sInput)][0] + "is not a valid item or it does not exist.");
