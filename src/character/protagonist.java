@@ -41,5 +41,17 @@ public class protagonist extends character {
         }
         return output;
     }
+    
+    public boolean check(String sInput) {
+        boolean output = false;
+        for (int i = 0; i < inventory.length; i++) {
+            if (sInput.equals(dataForInventory[i][0])) {
+                return true;
+            }
+        }
+        return output;
+    }
+    
+    //needs method to change and use item
 
 }
