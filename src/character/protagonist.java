@@ -12,6 +12,8 @@ public class protagonist extends character {
     //int for amount
     public String[] skills;
     public int coins;
+    
+    item NOTHING = new item();
 
     /* keeps track of player state (out of character.combat, in town, etc) and determines the commands the player can use
     0 = intro/tutorial
@@ -42,16 +44,47 @@ public class protagonist extends character {
         return output;
     }
     
-    public boolean check(String sInput) {
-        boolean output = false;
+    public int where(String input) {
+        int output = -1;
         for (int i = 0; i < inventory.length; i++) {
             if (sInput.equals(dataForInventory[i][0])) {
-                return true;
+                return i;
             }
         }
         return output;
     }
     
+    public boolean check(String input) {
+        boolean output = false;
+        if(where(input) != -1) {
+            return true;
+        }
+        if(!((boolean) dataForInventory[i][1])) {
+            return false;
+        }
+    }
+    
     //needs method to change and use item
+    public string[][] change(String input) {
+        datForInventory[where(input)][2]-=;
+        changeNothing();
+        for (int i = 0; i < inventory.length; i++) {
+            if (sInput.equals(dataForInventory[i][2]) <= 0) {
+                inventory[i] = NOTHING;
+                dataForInventory[i][0] = "";
+                dataForInventory[i][1] = false;
+                dataForInventory[i][2] = 0;
+            }
+        }
+        moveOver(inventory);
+        moveOver(dataForInventory)
+    }
+    
+    public void moveOver(item[] inventory) {
+    }
+   
+    public void moveOver(object[][] dataForInventory) {
+    }
+               
 
 }
