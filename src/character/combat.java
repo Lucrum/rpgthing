@@ -146,9 +146,11 @@ public class combat {
             case "i":{
                 System.out.println(/*a method to produce all the inventory*/);
                 sInput = sc.next();
-                playerTurn(attacker, defender, sInput);
-                //insert method that checks if a input is part of the string
-                //insert method that uses the inventory
+                while (!check(sInput)) {
+                    System.out.println("Invalid item. Either " + (String) attacker.dataForinventory[where(sInput)][0] + "is not a valid item or it does not exist.");
+                    sInput = sc.next();
+                }
+                change(sInput);
                 break;
             }
 
