@@ -1,8 +1,9 @@
+import character.*;
 import java.util.Scanner;
 
 public class GAEM2{
 
-    final private static String VER_NUM = "0.01";
+    private final static String VER_NUM = "0.02A COMBAT TEST";
 
     //Keep track of actions, an internal clock maybe
     private static int actCount = 1;
@@ -11,14 +12,12 @@ public class GAEM2{
 
 
     //pause code
-    public final static String apology = "Something went wrong and we don't know how to fix it.";
-
     public static void pause(int ms){
         try{
             Thread.currentThread().sleep(ms);
         }
         catch(InterruptedException ex){
-            System.out.println(apology);
+            System.out.println("Something went wrong and we don't know how to fix it.");
             Thread.currentThread().interrupt();
         }
     }
@@ -27,15 +26,18 @@ public class GAEM2{
         System.out.println(
                 "This is a development build. Features will be missing, things will be broken, and the game might not even work at all."
         );
-        pause(1000);
+        pause(500);
     }
+
+    private static int damageModifier = 1;
+    private static int difficulty = 1;
 
     //main
     public static void main(String[] args) {
 
 
         try{
-            System.out.println("GAME VERSION " + VER_NUM);
+            System.out.println("RPGTHING VER " + VER_NUM);
             devBuildWarning();
             Thread.sleep(1000);
         }
@@ -51,14 +53,21 @@ public class GAEM2{
         Scanner sc = new Scanner(System.in);
         //sc.next();
 
-        //creates protagonist
-        Protagonist player = new Protagonist();
+        //creates character.protagonist
+        protagonist player = new protagonist();
 
-        //player.setName();
-        player.setRace();
+        player.setName(0);
+        player.setRace(0);
         player.setRaceID(player.raceString);
         player.defineBaseStats(player.getRaceID());
         player.playerState = 0;
+
+
+        System.out.println("Please define a difficulty for the enemy. Default is 1 (can't be less than zero, if so default value is used).");
+        difficulty = sc.nextInt();
+        if (difficulty <= 0){
+            difficulty = 1;
+        }
 
 
         //story
@@ -74,12 +83,11 @@ public class GAEM2{
             }
         } */
 
-        //skips straight to combat for now
+        //skips straight to character.combat for now
 
         //pause(1000);
         //actOne.dialogue(0);
 
-
-        player.enterCombat(player, enemy.spawnEnemy(1), 1);
+        combat.enterCombat(player, enemy.spawnEnemy(difficulty), damageModifier);
     }
 }

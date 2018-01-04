@@ -26,7 +26,7 @@ public class actOne {
         switch(lineID){
             case 0:
                 startLine = 0;
-                endLine = 4;
+                endLine = 6;
                 break;
             /*
             case 1:
