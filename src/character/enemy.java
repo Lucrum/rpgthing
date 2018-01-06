@@ -26,7 +26,9 @@ public class enemy extends character {
         newEnemy.normDefense = newEnemy.defense = difficulty;
 
 
-        int randomNum = ThreadLocalRandom.current().nextInt(0, 5);
+
+        int randomNum = ThreadLocalRandom.current().nextInt(0, 6);
+
         newEnemy.name = names[(int)Math.floor(randomNum)];
 
 

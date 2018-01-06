@@ -1,5 +1,6 @@
 import character.*;
 import java.util.Scanner;
+import utilities.pause;
 
 public class GAEM2{
 
@@ -12,21 +13,13 @@ public class GAEM2{
 
 
     //pause code
-    public static void pause(int ms){
-        try{
-            Thread.currentThread().sleep(ms);
-        }
-        catch(InterruptedException ex){
-            System.out.println("Something went wrong and we don't know how to fix it.");
-            Thread.currentThread().interrupt();
-        }
-    }
+
 
     private static void devBuildWarning(){
         System.out.println(
                 "This is a development build. Features will be missing, things will be broken, and the game might not even work at all."
         );
-        pause(500);
+        pause.sleepThread(500);
     }
 
     private static int damageModifier = 1;
@@ -63,7 +56,7 @@ public class GAEM2{
         player.playerState = 0;
 
 
-        System.out.println("Please define a difficulty for the enemy. Default is 1 (can't be less than zero, if so default value is used).");
+        System.out.println("Please define a difficulty for the enemy. Default is 1.");
         difficulty = sc.nextInt();
         if (difficulty <= 0){
             difficulty = 1;

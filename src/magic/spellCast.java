@@ -61,7 +61,7 @@ public class spellCast{
     public static spell cast(character caster, int spellID){
 
         spellName = spellNameArray[spellID];
-        spellBaseDamage = caster.intelligence + spellBaseDamageArray[spellID];
+        spellBaseDamage = caster.getIntelligence() + spellBaseDamageArray[spellID];
         spellDescription = spellDescriptionArray[spellID];
         spellEffect = spellEffectArray[spellID];
         manaCost = manaCostArray[spellID];

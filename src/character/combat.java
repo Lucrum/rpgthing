@@ -1,25 +1,15 @@
 package character;
 
 import magic.*;
-
 import java.util.Scanner;
+import utilities.pause;
 
 public class combat {
 
-    public static void pause(int ms){
-        try{
-            Thread.currentThread().sleep(ms);
-        }
-        catch(InterruptedException ex){
-            System.out.println("Something went wrong and we don't know how to fix it.");
-            Thread.currentThread().interrupt();
-        }
-    }
 
     private static Scanner sc = new Scanner(System.in);
 
     //variables required for character.combat system
-    public static character whoWon;
     private static String[] combatCommands = new String[]{
             "Valid commands (first letter works too):",
             "ATTACK",
@@ -33,6 +23,8 @@ public class combat {
     //damageModifier reduces the damage of consecutive attacks to prevent it from being too easy
     public static character enterCombat(protagonist player, enemy opponent, int damageModifier){
 
+        character whoWon;
+
         int turnCounter = 0;
         player.playerState = 1;
 
@@ -45,15 +37,15 @@ public class combat {
 
         //prints out opponent's stats with delay
         System.out.println("\nOpponent stats");
-        pause(100);
+        pause.sleepThread(100);
         System.out.println("Health: " + opponent.health);
-        pause(100);
+        pause.sleepThread(100);
         System.out.println("Strength: " + opponent.strength);
-        pause(100);
+        pause.sleepThread(100);
         System.out.println("Agility: " + opponent.agility);
-        pause(100);
+        pause.sleepThread(100);
         System.out.println("Speed: " + opponent.speed);
-        pause(100);
+        pause.sleepThread(100);
         System.out.println("Defense: " + opponent.defense);
 
         while (opponent.health > 0 && player.health > 0) {
@@ -144,7 +136,7 @@ public class combat {
 
                 spell castedSpell = spellCast.cast(attacker, 0);
 
-                if(attacker.mana < castedSpell.manaCost){
+                if(attacker.mana < castedSpell.getManaCost()){
                     System.out.println("Insufficient mana.");
 
                     sInput = sc.next();
@@ -152,15 +144,17 @@ public class combat {
                 }
 
 
-                else if(attacker.mana >= castedSpell.manaCost){
+                else if(attacker.mana >= castedSpell.getManaCost()){
 
-                    System.out.println("You have casted " + castedSpell.name + "!");
+                    System.out.println("You have casted " + castedSpell.getName() + "!");
 
                     if(castedSpell.spellType == 1){
-                        System.out.println(castedSpell.name + " has dealt " + attacker.dealMagicDamage(castedSpell, defender) + " damage!");
+                        System.out.println(castedSpell.getName() + " has dealt " + attacker.dealMagicDamage(castedSpell, defender) + " damage!");
                     }
 
-                    attacker.mana -= castedSpell.manaCost;
+                    attacker.mana -= castedSpell.getManaCost();
+
+                    defender.addDebuffs(castedSpell.getSpellEffect());
                 }
 
                 break;
@@ -191,32 +185,32 @@ public class combat {
 
                 //prints out opponent's stats with delay
                 System.out.println("Opponent stats");
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Health: " + defender.health);
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Strength: " + defender.strength);
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Agility: " + defender.agility);
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Speed: " + defender.speed);
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Defense: " + defender.defense);
 
-                pause(200);
+                pause.sleepThread(200);
                 System.out.println("---------------------");
-                pause(200);
+                pause.sleepThread(200);
 
                 //prints your stats with delay
                 System.out.println("Your stats");
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Health: " + attacker.health);
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Strength: " + attacker.strength);
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Agility: " + attacker.agility);
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Speed: " + attacker.speed);
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Defense: " + attacker.defense);
 
 
@@ -248,6 +242,9 @@ public class combat {
                 break;
             }
         }
+
+        //code that checks for debuffs/whatever
+
     }
 
     //for checking and registering inputs if monster/character.enemy is attacker
