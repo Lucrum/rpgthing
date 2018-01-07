@@ -5,7 +5,7 @@ public class effect{
     protected String effectName;
     protected int effectPotency;
     protected int effectType;
-    protected effectAction effectActivity;
+    protected int effectActivity;
     protected int effectDuration;
     protected int effectSlot;
 
@@ -14,31 +14,68 @@ public class effect{
     protected static effect burn;
     protected static effect freeze;
 
-    public effectAction getEffectActivity(){
+    public String getEffectName() {
+        return effectName;
+    }
+
+    public int getEffectPotency() {
+        return effectPotency;
+    }
+
+    public int getEffectType() {
+        return effectType;
+    }
+
+    public int getEffectActivity() {
         return effectActivity;
     }
 
+    public int getEffectDuration() {
+        return effectDuration;
+    }
+
+    public int getEffectSlot() {
+        return effectSlot;
+    }
+
+    public int getEffectID() {
+        return effectID;
+    }
+
+    public void setEffectDuration(int effectDuration) {
+        this.effectDuration = effectDuration;
+    }
+
     private String[] effectNameArray = new String[]{
-            "Burn"
+            "Burn",
+            "Freeze"
     };
 
     private int[] effectSlotArray = new int[]{
+            0,
             1
     };
 
     /*whether or not effect is offensive, defensive, etc
     0 = offensive
+    1 = defensive
+    2 = utility
      */
+
     private int[] effectTypeArray = new int[]{
-            0
+            0,
+            2
     };
 
     private int[] effectDurationArray = new int[]{
+            3,
             1
     };
 
-    private effect[] effectActionArray = new effectAction[]{
-            effectAction.burn(),
+
+    //refer to effectAction for IDs
+    private int[] effectActivityArray = new int[]{
+            0
     };
 
 
@@ -48,8 +85,8 @@ public class effect{
         this.effectName = effectNameArray[effectID];
         this.effectPotency = effectPotency;
         this.effectType = effectTypeArray[effectID];
-        this.effectActivity = effectActionArray[effectID];
         this.effectDuration = 1;
         this.effectSlot = effectSlotArray[effectID];
+        this.effectActivity = effectActivityArray[effectID];
     }
 }

@@ -1,13 +1,24 @@
 package magic;
 
-import character.character;
+import character.*;
+
 
 public class effectAction {
-    protected static void burn(int effectPotency, character victim, effect effect){
 
-        victim.setHealth(victim.getHealth() - (2 * effectPotency));
+    public static void doEffectAction(character caster, character victim, effect eff){
+        switch (eff.getEffectID()){
+            case 1:{
+                burn(caster, victim);
+                break;
+            }
+        }
 
-        effect.effectDuration--;
+        eff.setEffectDuration(eff.getEffectDuration() - 1);
+    }
 
+    private static void burn(character caster, character victim){
+        victim.setHealth(victim.getHealth() - (int)(Math.floor(caster.getIntelligence() * 1.5)));
+
+        System.out.println(victim.getName() + " has burned for " + Math.floor(caster.getIntelligence() * 1.5) + "!");
     }
 }

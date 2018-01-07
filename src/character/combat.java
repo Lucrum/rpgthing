@@ -258,14 +258,8 @@ public class combat {
 
                 effect debuff = attacker.debuffs[i];
 
-                Method effectMethod = debuff.getEffectAction();
+                effectAction.doEffectAction(defender, attacker, debuff);
 
-                try {
-                    effectMethod.invoke(1, defender);
-                }
-                catch (IllegalAccessException| InvocationTargetException ex){
-                    ex.printStackTrace();
-                }
             }
         }
     }
