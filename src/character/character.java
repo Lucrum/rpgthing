@@ -466,4 +466,8 @@ public class character {
         System.out.println("Mana: " + this.mana);
     }
 
+    public int checkDebuffs(){
+        return this.debuffs.length;
+    }
+
 }

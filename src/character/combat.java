@@ -1,6 +1,9 @@
 package character;
 
 import magic.*;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Scanner;
 import utilities.pause;
 
@@ -172,12 +175,13 @@ public class combat {
                 //needs to be tested
             case "item":
             case "i":{
-                System.out.println(attacker.read());
+                /*System.out.println(attacker.read());
                 sInput = sc.next();
                 while (!attacker.check(sInput)) {
                     System.out.println("Item does not exist");
                     sInput = sc.next();
                 }
+                */
                 //method to change and use items
                 
                 
@@ -249,7 +253,21 @@ public class combat {
         }
 
         //code that checks for debuffs/whatever
+        if (!(attacker.checkDebuffs() == 0)){
+            for (int i = 0; i < attacker.debuffs.length; i++){
 
+                effect debuff = attacker.debuffs[i];
+
+                Method effectMethod = debuff.getEffectAction();
+
+                try {
+                    effectMethod.invoke(1, defender);
+                }
+                catch (IllegalAccessException| InvocationTargetException ex){
+                    ex.printStackTrace();
+                }
+            }
+        }
     }
 
     //for checking and registering inputs if monster/character.enemy is attacker
