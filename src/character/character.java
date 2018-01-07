@@ -181,12 +181,8 @@ public class character {
         this.magicResist = magicResist;
     }
 
-    public void setDebuffs(effect[] debuffs) {
-        this.debuffs = debuffs;
-    }
-
     public void addDebuffs(effect debuff){
-        this.debuffs[this.debuffs.length + 1] = debuff;
+        this.debuffs[debuff.getEffectSlot()] = debuff;
     }
 
     public void setBuffs(effect[] buffs) {

@@ -75,7 +75,8 @@ public class effect{
 
     //refer to effectAction for IDs
     private int[] effectActivityArray = new int[]{
-            0
+            0,
+            1
     };
 
 
