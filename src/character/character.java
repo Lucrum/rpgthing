@@ -20,6 +20,7 @@ public class character {
     protected int magicResist;
     protected int[] debuffs = new int[10];
     protected int[] buffs;
+    protected int mastery;
 
     public String getName() {
         return name;
@@ -75,6 +76,10 @@ public class character {
 
     public int[] getBuffs(){
         return buffs;
+    }
+    
+    public int getMastery(){
+        return mastery;
     }
 
 
