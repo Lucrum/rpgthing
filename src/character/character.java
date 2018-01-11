@@ -18,8 +18,8 @@ public class character {
     protected int mana;
     protected spell[] spellbook;
     protected int magicResist;
-    protected effect[] debuffs;
-    protected effect[] buffs;
+    protected int[] debuffs = new int[10];
+    protected int[] buffs;
 
     public String getName() {
         return name;
@@ -69,11 +69,11 @@ public class character {
         return magicResist;
     }
 
-    public effect[] getDebuffs() {
+    public int[] getDebuffs() {
         return debuffs;
     }
 
-    public effect[] getBuffs(){
+    public int[] getBuffs(){
         return buffs;
     }
 
@@ -181,12 +181,8 @@ public class character {
         this.magicResist = magicResist;
     }
 
-    public void addDebuffs(effect debuff){
-        this.debuffs[debuff.getEffectSlot()] = debuff;
-    }
-
-    public void setBuffs(effect[] buffs) {
-        this.buffs = buffs;
+    public void addDebuffs(int debuffID){
+        this.debuffs[debuffID] = effect.effectDurationArray[debuffID];
     }
 
     public String raceString;
@@ -461,9 +457,4 @@ public class character {
         pause.sleepThread(100);
         System.out.println("Mana: " + this.mana);
     }
-
-    public int checkDebuffs(){
-        return this.debuffs.length;
-    }
-
 }
