@@ -1,3 +1,5 @@
+import utilities.pause;
+
 public class actOne {
     //class that stores dialogue and other story elements in Act One
 
@@ -40,7 +42,7 @@ public class actOne {
         //prints array's contents based on lines
         for(int i = startLine; i <= endLine; i++){
             System.out.println(storyDialogue[i]);
-            GAEM2.pause(1000);
+            pause.sleepThread(1000);
         }
     }
 }

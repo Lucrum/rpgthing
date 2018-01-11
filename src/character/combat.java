@@ -2,24 +2,17 @@ package character;
 
 import magic.*;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Scanner;
+import utilities.pause;
 
 public class combat {
 
-    public static void pause(int ms){
-        try{
-            Thread.currentThread().sleep(ms);
-        }
-        catch(InterruptedException ex){
-            System.out.println("Something went wrong and we don't know how to fix it.");
-            Thread.currentThread().interrupt();
-        }
-    }
 
     private static Scanner sc = new Scanner(System.in);
 
     //variables required for character.combat system
-    public static character whoWon;
     private static String[] combatCommands = new String[]{
             "Valid commands (first letter works too):",
             "ATTACK",
@@ -33,6 +26,8 @@ public class combat {
     //damageModifier reduces the damage of consecutive attacks to prevent it from being too easy
     public static character enterCombat(protagonist player, enemy opponent, int damageModifier){
 
+        character whoWon;
+
         int turnCounter = 0;
         player.playerState = 1;
 
@@ -45,15 +40,15 @@ public class combat {
 
         //prints out opponent's stats with delay
         System.out.println("\nOpponent stats");
-        pause(100);
+        pause.sleepThread(100);
         System.out.println("Health: " + opponent.health);
-        pause(100);
+        pause.sleepThread(100);
         System.out.println("Strength: " + opponent.strength);
-        pause(100);
+        pause.sleepThread(100);
         System.out.println("Agility: " + opponent.agility);
-        pause(100);
+        pause.sleepThread(100);
         System.out.println("Speed: " + opponent.speed);
-        pause(100);
+        pause.sleepThread(100);
         System.out.println("Defense: " + opponent.defense);
 
         while (opponent.health > 0 && player.health > 0) {
@@ -65,9 +60,15 @@ public class combat {
                 //does it if opponent is the attacker
                 enemyTurn(opponent, player);
 
+
+
                 //resets any handicaps
                 damageModifier = damageModifierHolder;
                 player.speed = player.normSpeed;
+
+
+                opponent.speed /= 2;
+
 
                 turnCounter++;
             }
@@ -81,6 +82,9 @@ public class combat {
                 System.out.println("\n");
                 String sInput = sc.next().toLowerCase();
                 playerTurn(player, opponent, sInput);
+
+                //resets opponent's speed
+                opponent.speed = opponent.normSpeed;
 
                 //reduces speed, allows player to attack multiple times if sufficiently quick
                 player.speed /= 2;
@@ -102,6 +106,14 @@ public class combat {
             player.playerState = 0;
         }
 
+        //resets any buffs
+        player.intelligence = player.normIntelligence;
+        player.strength = player.normStrength;
+        player.agility = player.normAgility;
+        player.defense = player.normDefense;
+        player.health = player.normHealth;
+        player.speed = player.normSpeed;
+
         //returns whoWon to use for later on
         return whoWon;
     }
@@ -116,7 +128,7 @@ public class combat {
             case "a":{
                 System.out.println("You have done " + attacker.strength + " damage!");
                 //attacks second, in this case monster
-                defender.physicalDamage(attacker.strength, defender.defense);
+                attacker.dealPhysicalDamage(defender);
                 break;
             }
 
@@ -124,11 +136,29 @@ public class combat {
             case "m":{
 
                 //magic code
+
                 spell castedSpell = spellCast.cast(attacker, 0);
 
-                System.out.println("You have casted " + castedSpell.name + "!");
+                if(attacker.mana < castedSpell.getManaCost()){
+                    System.out.println("Insufficient mana.");
 
-                defender.magicDamage(castedSpell, defender);
+                    sInput = sc.next();
+                    playerTurn(attacker, defender, sInput);
+                }
+
+
+                else if(attacker.mana >= castedSpell.getManaCost()){
+
+                    System.out.println("You have casted " + castedSpell.getName() + "!");
+
+                    if(castedSpell.spellType == 1){
+                        System.out.println(castedSpell.getName() + " has dealt " + attacker.dealMagicDamage(castedSpell, defender) + " damage!");
+                    }
+
+                    attacker.mana -= castedSpell.getManaCost();
+
+                    defender.addDebuffs(castedSpell.getSpellEffect());
+                }
 
                 break;
             }
@@ -142,13 +172,19 @@ public class combat {
                 break;
             }
 
+                //needs to be tested
             case "item":
             case "i":{
-                System.out.println(/*a method to produce all the inventory*/);
+                /*System.out.println(attacker.read());
                 sInput = sc.next();
-                playerTurn(attacker, defender, sInput);
-                //insert method that checks if a input is part of the string
-                //insert method that uses the inventory
+                while (!attacker.check(sInput)) {
+                    System.out.println("Item does not exist");
+                    sInput = sc.next();
+                }
+                */
+                //method to change and use items
+                
+                
                 break;
             }
 
@@ -158,32 +194,32 @@ public class combat {
 
                 //prints out opponent's stats with delay
                 System.out.println("Opponent stats");
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Health: " + defender.health);
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Strength: " + defender.strength);
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Agility: " + defender.agility);
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Speed: " + defender.speed);
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Defense: " + defender.defense);
 
-                pause(200);
+                pause.sleepThread(200);
                 System.out.println("---------------------");
-                pause(200);
+                pause.sleepThread(200);
 
                 //prints your stats with delay
                 System.out.println("Your stats");
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Health: " + attacker.health);
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Strength: " + attacker.strength);
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Agility: " + attacker.agility);
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Speed: " + attacker.speed);
-                pause(100);
+                pause.sleepThread(100);
                 System.out.println("Defense: " + attacker.defense);
 
 
@@ -215,6 +251,17 @@ public class combat {
                 break;
             }
         }
+
+        //code that checks for debuffs/whatever
+        if (!(attacker.checkDebuffs() == 0)){
+            for (int i = 0; i < attacker.debuffs.length; i++){
+
+                effect debuff = attacker.debuffs[i];
+
+                effectAction.doEffectAction(defender, attacker, debuff);
+
+            }
+        }
     }
 
     //for checking and registering inputs if monster/character.enemy is attacker
@@ -222,7 +269,7 @@ public class combat {
         //if health is low, has a higher chance to defend
         if (Math.random() > 0.15 * attacker.maxHealth / (attacker.health + 1)) {
             //attacks second, in this case player
-            System.out.println("Monster has done " + defender.physicalDamage(attacker.strength, defender.defense) + " damage!");
+            System.out.println(attacker.name + " has done " + attacker.dealPhysicalDamage(defender) + " damage!");
         }
 
         else {

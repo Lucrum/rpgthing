@@ -2,6 +2,7 @@ package character;
 
 import magic.*;
 import java.util.Scanner;
+import utilities.pause;
 
 public class character {
     //has stats and info for all characters (temporary values, can be manipulated)
@@ -12,32 +13,13 @@ public class character {
     protected double defense;
     protected int strength;
     protected int speed;
-    public int intelligence;
+    protected int intelligence;
     protected String race;
-    public int mana;
+    protected int mana;
     protected spell[] spellbook;
-
-    /*integer identifier for race, makes for easier usage
-    0 = human
-    1 = elven
-    2 = dwarven
-    3 = amalian
-     */
-    static protected int raceID;
-
-    //IDs for the races
-    private static String[] validRaces = new String[] {
-            "human", "elven", "dwarven", "amalian"
-    };
-
-    //comparison values when leaving character.combat, prevents stats from being permanently buffed
-    protected int normHealth;
-    protected int normAgility;
-    protected double normDefense;
-    protected int normStrength;
-    protected int normSpeed;
-    protected int normIntelligence;
-
+    protected int magicResist;
+    protected effect[] debuffs;
+    protected effect[] buffs;
 
     public String getName() {
         return name;
@@ -45,6 +27,10 @@ public class character {
 
     public int getHealth() {
         return health;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
     }
 
     public int getAgility() {
@@ -67,15 +53,147 @@ public class character {
         return intelligence;
     }
 
-    public String raceString;
+    public String getRace() {
+        return race;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public spell[] getSpellbook() {
+        return spellbook;
+    }
+
+    public int getMagicResist() {
+        return magicResist;
+    }
+
+    public effect[] getDebuffs() {
+        return debuffs;
+    }
+
+    public effect[] getBuffs(){
+        return buffs;
+    }
+
+
+
+    /*integer identifier for race, makes for easier usage
+        0 = human
+        1 = elven
+        2 = dwarven
+        3 = amalian
+         */
+    private static int raceID;
 
     public int getRaceID(){
         return raceID;
     }
 
+    //IDs for the races
+    private static String[] validRaces = new String[] {
+            "human", "elven", "dwarven", "amalian"
+    };
+
+    //comparison values when leaving character.combat, prevents stats from being permanently buffed
+    protected int normHealth;
+    protected int normAgility;
+    protected double normDefense;
+    protected int normStrength;
+    protected int normSpeed;
+    protected int normIntelligence;
+    protected int normMagicResist;
+
+    public int getNormHealth() {
+        return normHealth;
+    }
+
+    public int getNormAgility() {
+        return normAgility;
+    }
+
+    public double getNormDefense() {
+        return normDefense;
+    }
+
+    public int getNormStrength() {
+        return normStrength;
+    }
+
+    public int getNormSpeed() {
+        return normSpeed;
+    }
+
+    public int getNormIntelligence() {
+        return normIntelligence;
+    }
+
+    public int getNormMagicResist() {
+        return normMagicResist;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+    public void setAgility(int agility) {
+        this.agility = agility;
+    }
+
+    public void setDefense(double defense) {
+        this.defense = defense;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public void setIntelligence(int intelligence) {
+        this.intelligence = intelligence;
+    }
+
+    public void setRace(String race) {
+        this.race = race;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
+
+    public void setSpellbook(spell[] spellbook) {
+        this.spellbook = spellbook;
+    }
+
+    public void setMagicResist(int magicResist) {
+        this.magicResist = magicResist;
+    }
+
+    public void addDebuffs(effect debuff){
+        this.debuffs[debuff.getEffectSlot()] = debuff;
+    }
+
+    public void setBuffs(effect[] buffs) {
+        this.buffs = buffs;
+    }
+
+    public String raceString;
+
+
     //necessary variables for character.character creation
     private String confirmationQuestion;
-    private boolean confirmation;
     private String raceResult = "reason";
 
     Scanner input = new Scanner(System.in);
@@ -88,18 +206,8 @@ public class character {
             "\nHuman" + "\nThe human race is known as the weakest, having little in terms of strength. However, they compensate with their intellect and versatility."
     };
 
-    //pause code
-    public static void pause(int ms){
-        try{
-            Thread.currentThread().sleep(ms);
-        }
-        catch(InterruptedException ex){
-            System.out.println("Something went wrong and we don't know how to fix it.");
-            Thread.currentThread().interrupt();
-        }
-    }
 
-    private String givenName;
+
     //gets name
     public void setName(int attempt){
 
@@ -110,7 +218,7 @@ public class character {
             System.out.println("What is your name then?");
         }
 
-        givenName = input.next();
+        String givenName = input.next();
 
 
         //recursive thingy for the name
@@ -122,88 +230,108 @@ public class character {
         }
     }
 
-    //arrays for storing stats of the characters
-    private String[] humanBaseStats = new String[]{
-            "Health : 20",
-            "Agility: 5",
-            "Defense: 2",
-            "Strength: 5",
-            "Speed: 5",
-            "Intelligence: 10"
+    /*arrays for storing stats of the characters
+    [0] = health
+    [1] = agility
+    [2] = defense (armor)
+    [3] = strength
+    [4] = speed
+    [5] = intelligence
+    [6] = mana pool
+     */
+
+    private String[] baseStatsStructure = new String[]{
+            "Health: ",
+            "Agility: ",
+            "Defense: ",
+            "Strength: ",
+            "Speed: ",
+            "Intelligence: ",
+            "Mana: "
     };
-    private String[] elvenBaseStats = new String[]{
-            "Health : 18",
-            "Agility: 4",
-            "Defense: 1",
-            "Strength: 5",
-            "Speed: 5",
-            "Intelligence: 15"
+
+    private int[] humanBaseStats = new int[]{
+            20,
+            5,
+            2,
+            5,
+            5,
+            10,
+            50
     };
-    private String[] dwarvenBaseStats = new String[]{
-            "Health : 25",
-            "Agility: 2",
-            "Defense: 4",
-            "Strength: 7",
-            "Speed: 3",
-            "Intelligence: 2"
+    private int[] elvenBaseStats = new int[]{
+            18,
+            4,
+            1,
+            5,
+            5,
+            15,
+            75
     };
-    private String[] amalianBaseStats = new String[]{
-            "Health : 25",
-            "Agility: 5",
-            "Defense: 3",
-            "Strength: 10",
-            "Speed: 7",
-            "Intelligence: 3"
+    private int[] dwarvenBaseStats = new int[]{
+            25,
+            2,
+            4,
+            7,
+            3,
+            2,
+            30
+    };
+    private int[] amalianBaseStats = new int[]{
+            25,
+            5,
+            3,
+            10,
+            7,
+            3,
+            45
     };
 
 
+    private int[] array;
 
     //confirmation code
-    public boolean confirm(int application, String characterProperty) {
+    private boolean confirm(int application, String characterProperty) {
+
+        boolean confirmation;
 
         //changes question based on what's being confirmed (switch doesn't work for some reason)
         if (application == 0){
             confirmationQuestion = "Your name is ";
         }
         else if (application == 1){
+
             switch(characterProperty){
+                //human
                 case "human":{
-                    System.out.println("\nStats");
-                    pause(100);
-                    for(int i = 0; i < 6; i++){
-                        System.out.println(humanBaseStats[i]);
-                        pause(100);
-                    }
+                    array = humanBaseStats;
                     break;
                 }
+
+                //elven
                 case "elven":{
-                    System.out.println("\nStats");
-                    pause(100);
-                    for(int i = 0; i < 6; i++){
-                        System.out.println(elvenBaseStats[i]);
-                        pause(100);
-                    }
+                    array = elvenBaseStats;
                     break;
                 }
+
+                //dwarven
                 case "dwarven":{
-                    System.out.println("\nStats");
-                    pause(100);
-                    for(int i = 0; i < 6; i++){
-                        System.out.println(dwarvenBaseStats[i]);
-                        pause(100);
-                    }
+                    array = dwarvenBaseStats;
                     break;
                 }
+
+                //amalian
                 case "amalian":{
-                    System.out.println("\nStats");
-                    pause(100);
-                    for(int i = 0; i < 6; i++){
-                        System.out.println(amalianBaseStats[i]);
-                        pause(100);
-                    }
+                    array = amalianBaseStats;
                     break;
                 }
             }
+
+            for(int i = 0; i < array.length; i++){
+                System.out.println(baseStatsStructure[i] + array[i]);
+                pause.sleepThread(100);
+            }
+
             confirmationQuestion = "\nYou're ";
         }
 
@@ -288,85 +416,54 @@ public class character {
             System.out.println(raceDescriptions[i]);
 
             //pauses the printing for 1 second, so it isn't just spat out at you simultaneously and is more organic
-            pause(1000);
+            pause.sleepThread(1000);
         }
     }
 
-    //defines base stats based on the ID of the race. Please update array above if these values change.
-    public void defineBaseStats(int raceID){
-        switch (raceID){
-            case 0:{
-                //human
-                health = 20;
-                agility = 5;
-                defense = 2;
-                strength = 5;
-                speed = 5;
-                intelligence = 10;
-                break;
-            }
-            case 1:{
-                //elven
-                health = 18;
-                agility = 4;
-                defense = 1;
-                strength = 5;
-                speed = 5;
-                intelligence = 15;
-                break;
-            }
-            case 2:{
-                //dwarven
-                health = 25;
-                agility = 2;
-                defense = 4;
-                strength = 7;
-                speed = 3;
-                intelligence = 2;
-                break;
-            }
-            case 3:{
-                //amalian
-                health = 25;
-                agility = 5;
-                defense = 3;
-                strength = 10;
-                speed = 7;
-                intelligence = 3;
-                break;
-            }
-        }
-        this.normAgility = this.agility;
-        this.normDefense = this.defense;
-        this.normHealth = this.health;
-        this.normStrength = this.strength;
-        this.normSpeed = this.speed;
-        this.normIntelligence = this.intelligence;
+
+
+    //defines base stats based on the ID of the race.
+    public void defineBaseStats(){
+        this.normHealth = this.health = array[0];
+        this.normAgility = this.agility = array[1];
+        this.normDefense = this.defense = array[2];
+        this.normStrength = this.strength = array[3];
+        this.normSpeed = this.speed = array[4];
+        this.normIntelligence = this.intelligence = array[5];
+        this.mana = array[6];
     }
 
+    private int damageDealt;
     //lowers hp in combat
-    public int physicalDamage(int strength, double defense){
-        int dmg = (int)(strength - defense);
+    public int dealPhysicalDamage(character victim){
+        damageDealt = (int)(Math.ceil(this.strength * (1 - (75)/(victim.defense + 75))));
 
-        if (dmg < 0){
-            dmg = 1;
+        if (damageDealt < 0){
+            damageDealt = 1;
         }
 
-        this.health -= dmg;
-        return dmg;
+        return damageDealt;
     }
 
-    public void magicDamage(spell Spell, character victim){
+    public int dealMagicDamage(spell Spell, character victim){
+        damageDealt = Spell.getDamage() * ((75)/(victim.magicResist + 75));
 
+        victim.health -= damageDealt;
+        return damageDealt;
     }
 
 
     //prints current stats, such as mana or health
     public void currentStats(){
         System.out.println(this.name + "'s stats");
-        pause(100);
+        pause.sleepThread(100);
         System.out.println("Health: " + this.health);
-        pause(100);
+        pause.sleepThread(100);
         System.out.println("Mana: " + this.mana);
     }
+
+    public int checkDebuffs(){
+        return this.debuffs.length;
+    }
+
 }
