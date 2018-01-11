@@ -4,15 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/src/GAEM2.java" line="30" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="af5ba4eb-7264-4928-9b53-15aae88ceef2" name="Default" comment="Moved Nationality over to methods">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/character/character.java" afterPath="$PROJECT_DIR$/src/character/character.java" />
-      <change beforePath="$PROJECT_DIR$/src/character/combat.java" afterPath="$PROJECT_DIR$/src/character/combat.java" />
-      <change beforePath="$PROJECT_DIR$/src/magic/effect.java" afterPath="$PROJECT_DIR$/src/magic/effect.java" />
-      <change beforePath="$PROJECT_DIR$/src/magic/effectAction.java" afterPath="$PROJECT_DIR$/src/magic/effectAction.java" />
-      <change beforePath="$PROJECT_DIR$/src/magic/spell.java" afterPath="$PROJECT_DIR$/src/magic/spell.java" />
-      <change beforePath="$PROJECT_DIR$/src/magic/spellCast.java" afterPath="$PROJECT_DIR$/src/magic/spellCast.java" />
-    </list>
+    <list default="true" id="af5ba4eb-7264-4928-9b53-15aae88ceef2" name="Default" comment="Moved Nationality over to methods" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -31,8 +23,8 @@
           <file leaf-file-name="GAEM2.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/GAEM2.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="314">
-                  <caret line="59" column="34" lean-forward="false" selection-start-line="59" selection-start-column="34" selection-end-line="59" selection-end-column="34" />
+                <state relative-caret-position="756">
+                  <caret line="85" column="1" lean-forward="true" selection-start-line="85" selection-start-column="1" selection-end-line="85" selection-end-column="1" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -1059,16 +1051,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GAEM2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="59" column="34" lean-forward="false" selection-start-line="59" selection-start-column="34" selection-end-line="59" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/character/character.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3077">
@@ -1145,6 +1127,16 @@
             <element signature="e#3670#3671#0" expanded="true" />
             <element signature="e#3713#3714#0" expanded="true" />
             <element signature="e#3790#3791#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GAEM2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="756">
+          <caret line="85" column="1" lean-forward="true" selection-start-line="85" selection-start-column="1" selection-end-line="85" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
