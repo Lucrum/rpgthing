@@ -51,7 +51,7 @@ public class effect{
             "Freeze"
     };
 
-    private int[] effectSlotArray = new int[]{
+    public int[] effectSlotArray = new int[]{
             0,
             1
     };
@@ -67,7 +67,7 @@ public class effect{
             2
     };
 
-    private int[] effectDurationArray = new int[]{
+    public static int[] effectDurationArray = new int[]{
             3,
             1
     };
@@ -82,11 +82,11 @@ public class effect{
 
 
 
-    public effect(int effectID, String effectName, int effectPotency, int effectType) {
+    public effect(int effectID) {
         this.effectName = effectNameArray[effectID];
-        this.effectPotency = effectPotency;
+        this.effectPotency = 1;
         this.effectType = effectTypeArray[effectID];
-        this.effectDuration = 1;
+        this.effectDuration = effectDurationArray[effectID];
         this.effectSlot = effectSlotArray[effectID];
         this.effectActivity = effectActivityArray[effectID];
     }

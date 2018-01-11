@@ -5,7 +5,7 @@ public class spell {
     protected String name;
     protected int damage;
     protected String description;
-    protected effect spellEffect;
+    protected int spellEffectID;
     protected int manaCost;
     protected int duration;
 
@@ -24,8 +24,8 @@ public class spell {
         return description;
     }
 
-    public effect getSpellEffect() {
-        return spellEffect;
+    public int getSpellEffectID() {
+        return spellEffectID;
     }
 
     public int getManaCost() {
@@ -44,6 +44,8 @@ public class spell {
         return spellType;
     }
 
+
+
     /*spell type identifier
         0 = offensive
         1 = defensive
@@ -52,14 +54,13 @@ public class spell {
     public int spellType;
 
 
-    public spell(String name, int damage, String description, effect spellEffect, int manaCost, int duration, int spellType) {
+    public spell(String name, int damage, String description, int spellEffectID, int manaCost, int duration, int spellType) {
         this.name = name;
         this.description = description;
         this.damage = damage;
-        this.spellEffect = spellEffect;
+        this.spellEffectID = spellEffectID;
         this.manaCost = manaCost;
         this.duration = duration;
         this.spellType = spellType;
     }
-
 }

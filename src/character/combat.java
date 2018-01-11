@@ -2,8 +2,6 @@ package character;
 
 import magic.*;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Scanner;
 import utilities.pause;
 
@@ -22,13 +20,13 @@ public class combat {
             "STATS"
     };
 
+    public static int turnCounter;
 
     //damageModifier reduces the damage of consecutive attacks to prevent it from being too easy
     public static character enterCombat(protagonist player, enemy opponent, int damageModifier){
 
         character whoWon;
 
-        int turnCounter = 0;
         player.playerState = 1;
 
         for(int i = 0; i <= 5; i++){
@@ -119,9 +117,12 @@ public class combat {
     }
 
 
-    //for checking and registering inputs if player is the attacker
-    private static void playerTurn(protagonist attacker, character defender, String sInput) {
+    private static int spellCastID;
 
+    //for checking and registering inputs if player is the attacker
+    public static void playerTurn(character attacker, character defender, String sInput) {
+
+        //checks what the player wants to do
         switch(sInput){
 
             case "attack":
@@ -136,9 +137,38 @@ public class combat {
             case "m":{
 
                 //magic code
+                //TODO: make code that prints out spell book contents
 
-                spell castedSpell = spellCast.cast(attacker, 0);
+                System.out.println("F for fireball. R for freeze. Q to return to previous menu.");
 
+                String spellCastString = sc.next().toLowerCase();
+
+                //loop that asks for what spell they want
+                inputLoop: while(true) {
+                    switch (spellCastString) {
+                        case "f": {
+                            spellCastID = 0;
+                            break inputLoop;
+                        }
+                        case "r": {
+                            spellCastID = 1;
+                            break inputLoop;
+                        }
+                        case "q":{
+                            sInput = sc.next();
+                            playerTurn(attacker, defender, sInput);
+                            break inputLoop;
+                        }
+                        default: {
+                            System.out.println("Invalid input.");
+                        }
+                    }
+                }
+
+                spell castedSpell = spellCast.cast(attacker, spellCastID);
+
+
+                //the following if and else if functions are to check if player has sufficient mana to cast the spell
                 if(attacker.mana < castedSpell.getManaCost()){
                     System.out.println("Insufficient mana.");
 
@@ -147,6 +177,7 @@ public class combat {
                 }
 
 
+                //if player has enough mana, casts the spell
                 else if(attacker.mana >= castedSpell.getManaCost()){
 
                     System.out.println("You have casted " + castedSpell.getName() + "!");
@@ -155,9 +186,10 @@ public class combat {
                         System.out.println(castedSpell.getName() + " has dealt " + attacker.dealMagicDamage(castedSpell, defender) + " damage!");
                     }
 
+                    //subtracts mana cost from mana pool
                     attacker.mana -= castedSpell.getManaCost();
 
-                    defender.addDebuffs(castedSpell.getSpellEffect());
+                    defender.addDebuffs(castedSpell.getSpellEffectID());
                 }
 
                 break;
@@ -228,10 +260,10 @@ public class combat {
                 break;
             }
 
+            //prints valid commands
             case "help":
             case "h": {
 
-                //prints out valid commands
                 for(int i = 0; i <= 5; i++){
                     System.out.println(combatCommands[i]);
                 }
@@ -252,20 +284,14 @@ public class combat {
             }
         }
 
-        //code that checks for debuffs/whatever
-        if (!(attacker.checkDebuffs() == 0)){
-            for (int i = 0; i < attacker.debuffs.length; i++){
-
-                effect debuff = attacker.debuffs[i];
-
-                effectAction.doEffectAction(defender, attacker, debuff);
-
-            }
-        }
+        /*checks for debuffs, sends both attacker (protagonist) and defender
+        because of things like turn skips that might apply to other party (or sapping effects)
+        */
+        checkDebuffs(attacker, defender);
     }
 
-    //for checking and registering inputs if monster/character.enemy is attacker
-    private static void enemyTurn(character attacker, protagonist defender) {
+    //for checking and registering inputs if monster/enemy is attacker
+    public static void enemyTurn(character attacker, character defender) {
         //if health is low, has a higher chance to defend
         if (Math.random() > 0.15 * attacker.maxHealth / (attacker.health + 1)) {
             //attacks second, in this case player
@@ -277,6 +303,23 @@ public class combat {
             attacker.defense *= 1.5;
             //prints out
             System.out.println(attacker.name + "'s defense is now " + attacker.defense + "!");
+        }
+
+        //checks debuffs on enemy
+        checkDebuffs(attacker, defender);
+    }
+
+    private static void checkDebuffs(character attacker, character defender){
+
+        //cycles through the debuffs array, making sure all entries are clear
+        //an entry that isn't clear means there's an active debuff in place
+        for(int i = 0; i < attacker.debuffs.length; i++){
+            if(attacker.debuffs[i] != 0) {
+
+                effectAction.doEffectAction(defender, attacker, i);
+
+                attacker.debuffs[i]--;
+            }
         }
     }
 }
