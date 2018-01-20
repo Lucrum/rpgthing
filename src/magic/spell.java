@@ -3,11 +3,9 @@ package magic;
 public class spell {
 
     protected String name;
-    protected int damage;
+    protected double damage;
     protected String description;
-    protected int spellEffectID;
-    protected int manaCost;
-    protected int duration;
+    protected int spellEffectID, manaCost, duration;
 
     //identifier for the spell
     protected int spellID;
@@ -16,7 +14,7 @@ public class spell {
         return name;
     }
 
-    public int getDamage() {
+    public double getDamage() {
         return damage;
     }
 
@@ -54,7 +52,7 @@ public class spell {
     public int spellType;
 
 
-    public spell(String name, int damage, String description, int spellEffectID, int manaCost, int duration, int spellType) {
+    spell(String name, double damage, String description, int spellEffectID, int manaCost, int duration, int spellType) {
         this.name = name;
         this.description = description;
         this.damage = damage;

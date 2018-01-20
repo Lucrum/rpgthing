@@ -4,14 +4,10 @@ import character.character;
 
 public class spellCast{
 
-
     private static String spellName;
     private static String spellDescription;
-    private static int spellBaseDamage;
-    private static int spellEffectID;
-    private static int manaCost;
-    private static int duration;
-    private static int spellType;
+    private static int spellEffectID, manaCost, duration, spellType;
+    private static double spellBaseDamage;
 
 
     //arrays for holding information
@@ -60,13 +56,15 @@ public class spellCast{
 
     public static spell cast(character caster, int spellID){
 
-        spellName = spellNameArray[spellID];
-        spellBaseDamage = caster.getIntelligence() + spellBaseDamageArray[spellID];
-        spellDescription = spellDescriptionArray[spellID];
-        spellEffectID = spellEffectIDArray[spellID];
-        manaCost = manaCostArray[spellID];
-        duration = spellDurationArray[spellID];
-        spellType = spellTypeArray[spellID];
+        if(spellID != -1) {
+            spellName = spellNameArray[spellID];
+            spellBaseDamage = caster.getIntelligence() + spellBaseDamageArray[spellID];
+            spellDescription = spellDescriptionArray[spellID];
+            spellEffectID = spellEffectIDArray[spellID];
+            manaCost = manaCostArray[spellID];
+            duration = spellDurationArray[spellID];
+            spellType = spellTypeArray[spellID];
+        }
 
 
         spell castedSpell = new spell(spellName, spellBaseDamage, spellDescription, spellEffectID, manaCost, duration, spellType);

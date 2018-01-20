@@ -23,9 +23,12 @@ public class combat {
     public static int turnCounter;
 
     //damageModifier reduces the damage of consecutive attacks to prevent it from being too easy
-    public static character enterCombat(protagonist player, enemy opponent, int damageModifier){
+    public static character enterCombat(protagonist player, enemy opponent){
 
         character whoWon;
+
+        player.setDamageModifier(1);
+        final int damageModifierHolder = 1;
 
         player.playerState = 1;
 
@@ -33,8 +36,6 @@ public class combat {
             System.out.println(combatCommands[i]);
         }
 
-        //holds the damage modifier, allows it to return it its normal value after consecutive attacks
-        int damageModifierHolder = damageModifier;
 
         //prints out opponent's stats with delay
         System.out.println("\nOpponent stats");
@@ -61,7 +62,7 @@ public class combat {
 
 
                 //resets any handicaps
-                damageModifier = damageModifierHolder;
+                player.setDamageModifier(damageModifierHolder);
                 player.speed = player.normSpeed;
 
 
@@ -87,7 +88,7 @@ public class combat {
                 //reduces speed, allows player to attack multiple times if sufficiently quick
                 player.speed /= 2;
                 //reduces damage per subsequent attack by 25%
-                damageModifier *= .75;
+                player.setDamageModifier(player.getDamageModifier() * .75);
 
                 turnCounter++;
             }
@@ -112,24 +113,29 @@ public class combat {
         player.health = player.normHealth;
         player.speed = player.normSpeed;
 
+        if (whoWon.getClass().getName().equals("character.protagonist")){
+            System.out.println(whoWon.getName() + " wins!");
+        }
+        else{
+            System.out.println("You have died!");
+        }
+
         //returns whoWon to use for later on
         return whoWon;
     }
 
 
-    private static int spellCastID;
-
     //for checking and registering inputs if player is the attacker
     public static void playerTurn(character attacker, character defender, String sInput) {
+
+        int spellCastID;
 
         //checks what the player wants to do
         switch(sInput){
 
             case "attack":
             case "a":{
-                System.out.println("You have done " + attacker.strength + " damage!");
-                //attacks second, in this case monster
-                attacker.dealPhysicalDamage(defender);
+                System.out.println("You have done " + (int)(Math.round(attacker.dealPhysicalDamage(defender))) + " damage!");
                 break;
             }
 
@@ -155,8 +161,7 @@ public class combat {
                             break inputLoop;
                         }
                         case "q":{
-                            sInput = sc.next();
-                            playerTurn(attacker, defender, sInput);
+                            spellCastID = -1;
                             break inputLoop;
                         }
                         default: {
@@ -165,8 +170,14 @@ public class combat {
                     }
                 }
 
-                spell castedSpell = spellCast.cast(attacker, spellCastID);
 
+                if(spellCastID == -1){
+                    sInput = sc.next();
+                    playerTurn(attacker, defender, sInput);
+                    break;
+                }
+
+                spell castedSpell = spellCast.cast(attacker, spellCastID);
 
                 //the following if and else if functions are to check if player has sufficient mana to cast the spell
                 if(attacker.mana < castedSpell.getManaCost()){
@@ -207,6 +218,8 @@ public class combat {
                 //needs to be tested
             case "item":
             case "i":{
+
+                System.out.println("No items.");
                 /*System.out.println(attacker.read());
                 sInput = sc.next();
                 while (!attacker.check(sInput)) {
@@ -215,7 +228,9 @@ public class combat {
                 }
                 */
                 //method to change and use items
-                
+
+                sInput = sc.next();
+                playerTurn(attacker, defender, sInput);
                 
                 break;
             }

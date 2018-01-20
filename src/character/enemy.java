@@ -14,22 +14,20 @@ public class enemy extends character {
             "Heleck"
     };
 
-    //creates a new character.enemy object
-    public static enemy spawnEnemy(int difficulty){
+    //creates a new enemy object
+    public static enemy spawnEnemy(double difficulty){
 
-        //creates the character.enemy itself and defines its stats
+        //randomizes difficulty, making it equal to somewhere +- the difficulty
+        difficulty = Math.floor(ThreadLocalRandom.current().nextInt((int)difficulty - 2, (int)difficulty + 2));
+
+        //creates the enemy itself and defines its stats
         enemy newEnemy = new enemy();
         newEnemy.normHealth = newEnemy.health = difficulty * 40;
         newEnemy.normStrength = newEnemy.strength = difficulty * 2;
         newEnemy.normAgility = newEnemy.agility = difficulty;
         newEnemy.normSpeed = newEnemy.speed = difficulty;
         newEnemy.normDefense = newEnemy.defense = difficulty;
-
-
-
-        int randomNum = ThreadLocalRandom.current().nextInt(0, 6);
-
-        newEnemy.name = names[(int)Math.floor(randomNum)];
+        newEnemy.name = names[(int)Math.floor(ThreadLocalRandom.current().nextInt(0,6))];
 
 
         return newEnemy;

@@ -3,13 +3,8 @@ package magic;
 public class effect{
 
     protected String effectName;
-    protected int effectPotency;
-    protected int effectType;
-    protected int effectActivity;
-    protected int effectDuration;
-    protected int effectSlot;
+    protected int effectPotency, effectType, effectActivity, effectDuration, effectSlot, effectID;
 
-    protected int effectID;
 
     protected static effect burn;
     protected static effect freeze;

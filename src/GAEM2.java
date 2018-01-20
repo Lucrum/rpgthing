@@ -1,6 +1,7 @@
 import character.*;
 import java.util.Scanner;
 import utilities.pause;
+import places.*;
 
 public class GAEM2{
 
@@ -12,8 +13,6 @@ public class GAEM2{
     private static int partCount = 1;
 
 
-    //pause code
-
 
     private static void devBuildWarning(){
         System.out.println(
@@ -22,7 +21,6 @@ public class GAEM2{
         pause.sleepThread(500);
     }
 
-    private static int damageModifier = 1;
     private static int difficulty = 1;
 
     //main
@@ -56,7 +54,7 @@ public class GAEM2{
         player.playerState = 0;
 
 
-        System.out.println("Please define a difficulty for the enemy. Default is 1.");
+        System.out.println("Please define a difficulty for the dungeon. Default is 1.");
         difficulty = sc.nextInt();
         if (difficulty <= 0){
             difficulty = 1;
@@ -81,6 +79,13 @@ public class GAEM2{
         //pause(1000);
         //actOne.dialogue(0);
 
-        combat.enterCombat(player, enemy.spawnEnemy(difficulty), damageModifier);
+        dungeon stronghold = dungeon.generateDungeon(difficulty);
+
+        dungeon.enter(player, stronghold);
+
+
+        combat.enterCombat(player, enemy.spawnEnemy(difficulty));
+
+
     }
 }

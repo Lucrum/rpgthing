@@ -7,17 +7,10 @@ import utilities.pause;
 public class character {
     //has stats and info for all characters (temporary values, can be manipulated)
     protected String name;
-    protected int health;
-    protected int maxHealth;
-    protected int agility;
-    protected double defense;
-    protected int strength;
-    protected int speed;
-    protected int intelligence;
-    protected String race;
+    protected double health, maxHealth, agility, strength, speed, intelligence, defense, magicResist;
     protected int mana;
+    protected String race;
     protected spell[] spellbook;
-    protected int magicResist;
     protected int[] debuffs = new int[10];
     protected int[] buffs;
 
@@ -25,15 +18,15 @@ public class character {
         return name;
     }
 
-    public int getHealth() {
+    public double getHealth() {
         return health;
     }
 
-    public int getMaxHealth() {
+    public double getMaxHealth() {
         return maxHealth;
     }
 
-    public int getAgility() {
+    public double getAgility() {
         return agility;
     }
 
@@ -41,15 +34,15 @@ public class character {
         return defense;
     }
 
-    public int getStrength() {
+    public double getStrength() {
         return strength;
     }
 
-    public int getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
-    public int getIntelligence() {
+    public double getIntelligence() {
         return intelligence;
     }
 
@@ -57,7 +50,7 @@ public class character {
         return race;
     }
 
-    public int getMana() {
+    public double getMana() {
         return mana;
     }
 
@@ -65,16 +58,8 @@ public class character {
         return spellbook;
     }
 
-    public int getMagicResist() {
+    public double getMagicResist() {
         return magicResist;
-    }
-
-    public int[] getDebuffs() {
-        return debuffs;
-    }
-
-    public int[] getBuffs(){
-        return buffs;
     }
 
 
@@ -85,6 +70,7 @@ public class character {
         2 = dwarven
         3 = amalian
          */
+
     private static int raceID;
 
     public int getRaceID(){
@@ -93,23 +79,17 @@ public class character {
 
     //IDs for the races
     private static String[] validRaces = new String[] {
-            "human", "elven", "dwarven", "amalian"
+            "human", "elven", "dwarven", "amalian", "god"
     };
 
     //comparison values when leaving character.combat, prevents stats from being permanently buffed
-    protected int normHealth;
-    protected int normAgility;
-    protected double normDefense;
-    protected int normStrength;
-    protected int normSpeed;
-    protected int normIntelligence;
-    protected int normMagicResist;
+    protected double normHealth, normAgility, normDefense, normStrength, normSpeed, normMagicResist, normIntelligence;
 
-    public int getNormHealth() {
+    public double getNormHealth() {
         return normHealth;
     }
 
-    public int getNormAgility() {
+    public double getNormAgility() {
         return normAgility;
     }
 
@@ -117,19 +97,19 @@ public class character {
         return normDefense;
     }
 
-    public int getNormStrength() {
+    public double getNormStrength() {
         return normStrength;
     }
 
-    public int getNormSpeed() {
+    public double getNormSpeed() {
         return normSpeed;
     }
 
-    public int getNormIntelligence() {
+    public double getNormIntelligence() {
         return normIntelligence;
     }
 
-    public int getNormMagicResist() {
+    public double getNormMagicResist() {
         return normMagicResist;
     }
 
@@ -137,15 +117,15 @@ public class character {
         this.name = name;
     }
 
-    public void setHealth(int health) {
+    public void setHealth(double health) {
         this.health = health;
     }
 
-    public void setMaxHealth(int maxHealth) {
+    public void setMaxHealth(double maxHealth) {
         this.maxHealth = maxHealth;
     }
 
-    public void setAgility(int agility) {
+    public void setAgility(double agility) {
         this.agility = agility;
     }
 
@@ -153,15 +133,15 @@ public class character {
         this.defense = defense;
     }
 
-    public void setStrength(int strength) {
+    public void setStrength(double strength) {
         this.strength = strength;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(double speed) {
         this.speed = speed;
     }
 
-    public void setIntelligence(int intelligence) {
+    public void setIntelligence(double intelligence) {
         this.intelligence = intelligence;
     }
 
@@ -177,7 +157,7 @@ public class character {
         this.spellbook = spellbook;
     }
 
-    public void setMagicResist(int magicResist) {
+    public void setMagicResist(double magicResist) {
         this.magicResist = magicResist;
     }
 
@@ -190,9 +170,8 @@ public class character {
 
     //necessary variables for character.character creation
     private String confirmationQuestion;
-    private String raceResult = "reason";
 
-    Scanner input = new Scanner(System.in);
+    private Scanner input = new Scanner(System.in);
 
     private static String[] raceDescriptions = new String[]{
             "Choose your race, you can only choose one:",
@@ -247,40 +226,49 @@ public class character {
     };
 
     private int[] humanBaseStats = new int[]{
-            20,
-            5,
-            2,
-            5,
-            5,
+            100,
+            50,
             10,
-            50
+            30,
+            50,
+            60,
+            125
     };
     private int[] elvenBaseStats = new int[]{
-            18,
-            4,
-            1,
+            85,
+            40,
             5,
-            5,
-            15,
-            75
+            10,
+            40,
+            75,
+            200
     };
     private int[] dwarvenBaseStats = new int[]{
+            120,
+            30,
+            12,
+            45,
+            30,
             25,
-            2,
-            4,
-            7,
-            3,
-            2,
-            30
+            100
     };
     private int[] amalianBaseStats = new int[]{
-            25,
-            5,
-            3,
-            10,
-            7,
-            3,
-            45
+            110,
+            65,
+            15,
+            40,
+            65,
+            30,
+            95
+    };
+    private int[] godBaseStats = new int[]{
+            10000000,
+            10000000,
+            10000000,
+            10000000,
+            10000000,
+            10000000,
+            10000000
     };
 
 
@@ -319,6 +307,12 @@ public class character {
                 //amalian
                 case "amalian":{
                     array = amalianBaseStats;
+                    break;
+                }
+
+                //debug race
+                case "god":{
+                    array = godBaseStats;
                     break;
                 }
             }
@@ -360,25 +354,50 @@ public class character {
 
         raceString = input.next().toLowerCase();
 
-        //cycles through possible races
-        for(int i = 0; i < 4; i++) {
-            if (validRaces[i].equals(raceString)) {
-                raceResult = raceString;
+        switch(raceString){
+            case "human":
+            case "h":{
+                raceString = "human";
+                break;
             }
-        }
 
-        //only accepts valid races ("reason" is the default value for the string). If invalid, fetches race again.)
-        if (raceResult.equals("reason")){
-            System.out.println("Invalid answer! Try again!");
-            setRace(1);
+            case "elven":
+            case "e":{
+                raceString = "elven";
+                break;
+            }
+
+            case "dwarven":
+            case "d":{
+                raceString = "dwarven";
+                break;
+            }
+
+            case "amalian":
+            case "a":{
+                raceString = "amalian";
+                break;
+            }
+
+            case "god":{
+                raceString = "god";
+                break;
+            }
+
+            default:{
+                System.out.println("Invalid race. Try again.");
+                setRace(1);
+            }
+
+
         }
 
         //recursive thingy for the race
-        if (!(confirm(1, raceResult))){
+        if (!(confirm(1, raceString))){
             setRace(1);
         }
         else{
-            this.race = raceResult;
+            this.race = raceString;
         }
     }
 
@@ -400,6 +419,9 @@ public class character {
             case "amalian": {
                 raceID = 3;
                 break;
+            }
+            case "god":{
+                raceID = 4;
             }
         }
     }
@@ -429,19 +451,23 @@ public class character {
         this.mana = array[6];
     }
 
-    private int damageDealt;
+    //END OF CHARACTER CREATION-------------------
+
+    private double damageDealt;
     //lowers hp in combat
-    public int dealPhysicalDamage(character victim){
-        damageDealt = (int)(Math.ceil(this.strength * (1 - (75)/(victim.defense + 75))));
+    public double dealPhysicalDamage(character victim){
+        damageDealt = Math.ceil(this.strength * (1 - (75)/(victim.defense + 75)));
 
         if (damageDealt < 0){
             damageDealt = 1;
         }
 
+        victim.setHealth(victim.getHealth() - damageDealt);
+
         return damageDealt;
     }
 
-    public int dealMagicDamage(spell Spell, character victim){
+    public double dealMagicDamage(spell Spell, character victim){
         damageDealt = Spell.getDamage() * ((75)/(victim.magicResist + 75));
 
         victim.health -= damageDealt;
