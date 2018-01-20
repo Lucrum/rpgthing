@@ -13,6 +13,7 @@ public class character {
     protected spell[] spellbook;
     protected int[] debuffs = new int[10];
     protected int[] buffs;
+    protected int mastery;
 
     public String getName() {
         return name;
@@ -60,6 +61,18 @@ public class character {
 
     public double getMagicResist() {
         return magicResist;
+    }
+
+    public int[] getDebuffs() {
+        return debuffs;
+    }
+
+    public int[] getBuffs(){
+        return buffs;
+    }
+    
+    public int getMastery(){
+        return mastery;
     }
 
 
